@@ -23,6 +23,116 @@
             margin: 0 auto;
         }
 
+        /* Login Screen Styles */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .login-box p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .login-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .back-link-login {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link-login:hover {
+            color: #764ba2;
+        }
+
+        /* Admin Panel Styles (hidden by default) */
+        .admin-content {
+            display: none;
+        }
+
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -46,6 +156,24 @@
 
         .back-link:hover {
             transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
         }
 
         .notification-badge {
@@ -308,6 +436,10 @@
         }
 
         @media (max-width: 768px) {
+            .login-box {
+                padding: 30px;
+            }
+
             .admin-section {
                 padding: 20px;
             }
@@ -328,34 +460,65 @@
 </head>
 <body>
     <div class="container">
-        <div class="top-bar">
-            <a href="index.html" class="back-link">← Back to Course Library</a>
-            <div class="notification-badge" id="notificationBadge">
-                🔔 <span id="pendingCount">0</span> Pending Requests
+        <!-- Login Screen -->
+        <div id="loginScreen" class="login-container">
+            <div class="login-box">
+                <div class="login-icon">🔐</div>
+                <h1>Teacher Access</h1>
+                <p>Enter password to access the admin panel</p>
+                
+                <div class="error-message" id="errorMessage">
+                    ❌ Incorrect password. Please try again.
+                </div>
+
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="password-input" 
+                    placeholder="Enter password"
+                    autocomplete="off"
+                >
+                
+                <button class="login-btn" onclick="checkPassword()">
+                    🔓 Unlock Admin Panel
+                </button>
+
+                <a href="index.html" class="back-link-login">← Back to Library</a>
             </div>
         </div>
 
-        <div class="admin-section">
-            <h1>👨‍🏫 Teacher Admin Panel</h1>
-            <p class="subtitle">Review and manage student course upload requests</p>
-
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="number" id="totalRequests">0</div>
-                    <div class="label">Total Requests</div>
+        <!-- Admin Panel Content (Hidden until authenticated) -->
+        <div id="adminContent" class="admin-content">
+            <div class="top-bar">
+                <a href="index.html" class="back-link">← Back to Course Library</a>
+                <div class="notification-badge" id="notificationBadge">
+                    🔔 <span id="pendingCount">0</span> Pending Requests
                 </div>
-                <div class="stat-box" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                    <div class="number" id="approvedCount">0</div>
-                    <div class="label">Approved</div>
-                </div>
-                <div class="stat-box" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
-                    <div class="number" id="declinedCount">0</div>
-                    <div class="label">Declined</div>
-                </div>
+                <button class="logout-btn" onclick="logout()">🚪 Logout</button>
             </div>
 
-            <h2 style="color: #333; margin-bottom: 20px; font-size: 1.8em;">📋 Pending Requests</h2>
-            <div id="requestsList"></div>
+            <div class="admin-section">
+                <h1>👨‍🏫 Teacher Admin Panel</h1>
+                <p class="subtitle">Review and manage student course upload requests</p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="number" id="totalRequests">0</div>
+                        <div class="label">Total Requests</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                        <div class="number" id="approvedCount">0</div>
+                        <div class="label">Approved</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
+                        <div class="number" id="declinedCount">0</div>
+                        <div class="label">Declined</div>
+                    </div>
+                </div>
+
+                <h2 style="color: #333; margin-bottom: 20px; font-size: 1.8em;">📋 Pending Requests</h2>
+                <div id="requestsList"></div>
+            </div>
         </div>
     </div>
 
@@ -373,8 +536,65 @@
     </div>
 
     <script>
+        // Password Protection
+        const ADMIN_PASSWORD = 'lsi-1a-fss';
         let currentRequest = null;
         let currentAction = null;
+
+        // Check if already authenticated
+        window.onload = function() {
+            if (sessionStorage.getItem('adminAuth') === 'true') {
+                showAdminPanel();
+            }
+        };
+
+        // Check password
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const password = input.value;
+            const errorMsg = document.getElementById('errorMessage');
+
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('adminAuth', 'true');
+                showAdminPanel();
+            } else {
+                errorMsg.classList.add('show');
+                input.value = '';
+                input.focus();
+                
+                // Hide error after 3 seconds
+                setTimeout(() => {
+                    errorMsg.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Show admin panel
+        function showAdminPanel() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            loadRequests();
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('adminAuth');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        // Allow Enter key to submit password
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
 
         // Category names map
         const categoryNames = {
@@ -416,7 +636,7 @@
 
             container.innerHTML = requests.map(req => {
                 const date = new Date(req.date).toLocaleString();
-                const isNew = Date.now() - req.timestamp < 3600000; // New if less than 1 hour old
+                const isNew = Date.now() - req.timestamp < 3600000;
                 
                 return `
                     <div class="request-card ${isNew ? 'new' : ''}">
@@ -521,64 +741,22 @@
             if (requestIndex !== -1) {
                 const request = requests[requestIndex];
                 
-                // Update request status
                 requests[requestIndex].status = currentAction === 'approve' ? 'approved' : 'declined';
                 requests[requestIndex].responseMessage = message;
                 requests[requestIndex].responseDate = new Date().toISOString();
                 
-                // Save updated requests
                 localStorage.setItem('courseRequests', JSON.stringify(requests));
                 
-                // Send email notification (simulated - you'll need backend for real emails)
-                sendEmailNotification(request, currentAction, message);
+                alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!`);
                 
-                // Show confirmation
-                alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!\n\nEmail notification ${request.email ? 'sent' : 'not sent (no email provided)'}.`);
-                
-                // Reload requests
                 loadRequests();
             }
             
             closeModal();
         }
 
-        // Simulate email notification
-        function sendEmailNotification(request, action, message) {
-            // In a real application, this would call a backend API to send actual emails
-            // For now, we'll just log it
-            console.log('Email Notification:');
-            console.log('To:', request.email);
-            console.log('Subject:', action === 'approve' ? 'Course Request Approved' : 'Course Request Declined');
-            console.log('Message:', message || 'No message provided');
-            console.log('---');
-            
-            // Store notification for demonstration
-            const notification = {
-                to: request.email,
-                subject: action === 'approve' ? '✅ Course Request Approved' : '❌ Course Request Declined',
-                message: message || 'Your request has been ' + action + 'd.',
-                courseTitle: request.courseTitle,
-                date: new Date().toISOString()
-            };
-            
-            const notifications = JSON.parse(localStorage.getItem('emailNotifications') || '[]');
-            notifications.push(notification);
-            localStorage.setItem('emailNotifications', JSON.stringify(notifications));
-        }
-
-        // Initialize
-        loadRequests();
-
         // Refresh every 30 seconds
         setInterval(loadRequests, 30000);
-    </script>
-
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("wApAniWRUqiYNGki9");
-        })();
     </script>
 
     <!-- StatCounter Code -->
