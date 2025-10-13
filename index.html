@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fss.jpg" type="image/x-icon">
+    <title>Class 2025 Course Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .action-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-link {
+            background: white;
+            padding: 20px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .action-link.teacher {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid white;
+            border-radius: 10px;
+            font-size: 1.1em;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .category {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .category h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .course-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .course-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #888;
+            margin: 15px 0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            background: #764ba2;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 5em;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-links {
+                flex-direction: column;
+            }
+
+            .action-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div>
+                    <h1>📚 <span id="siteTitle">Class 2025 Course Library</span></h1>
+                    <p id="siteSubtitle">Computer Science & Mathematics Resources</p>
+                </div>
+                <div class="language-selector">
+                    <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+                    <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="number" id="totalCourses">0</div>
+                    <div class="label" id="labelCourses">Total Courses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">10</div>
+                    <div class="label" id="labelCategories">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="totalDownloads">0</div>
+                    <div class="label" id="labelDownloads">Downloads</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Action Links -->
+        <div class="action-links">
+            <a href="student_request_page.html" class="action-link">
+                📤 <span id="requestLink">Request Course Upload</span>
+            </a>
+            <a href="teacher_admin_panel.html" class="action-link teacher">
+                👨‍🏫 <span id="teacherLink">Teacher Admin Panel</span>
+            </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="🔍 Search courses..." oninput="filterCourses()">
+        </div>
+
+        <!-- Courses Section -->
+        <div class="category">
+            <h2>💻 <span id="cat1">Atelier Programmation</span></h2>
+            <div class="course-grid" id="programmation"></div>
+        </div>
+
+        <div class="category">
+            <h2>🔧 <span id="cat2">Système Logique et Architecture</span></h2>
+            <div class="course-grid" id="systeme_logique"></div>
+        </div>
+
+        <div class="category">
+            <h2>📊 <span id="cat3">Algorithme et Structure de Données</span></h2>
+            <div class="course-grid" id="algorithme"></div>
+        </div>
+
+        <div class="category">
+            <h2>🧠 <span id="cat4">Logique Formelle</span></h2>
+            <div class="course-grid" id="logique"></div>
+        </div>
+
+        <div class="category">
+            <h2>🎨 <span id="cat5">Technologies Multimédia</span></h2>
+            <div class="course-grid" id="multimedia"></div>
+        </div>
+
+        <div class="category">
+            <h2>📡 <span id="cat6">Technique de Communication</span></h2>
+            <div class="course-grid" id="communication"></div>
+        </div>
+
+        <div class="category">
+            <h2>📐 <span id="cat7">Analyse</span></h2>
+            <div class="course-grid" id="analyse"></div>
+        </div>
+
+        <div class="category">
+            <h2>🔢 <span id="cat8">Algèbre</span></h2>
+            <div class="course-grid" id="algebre"></div>
+        </div>
+
+        <div class="category">
+            <h2>⚙️ <span id="cat9">Système d'Exploitation</span></h2>
+            <div class="course-grid" id="systeme_exploitation"></div>
+        </div>
+
+        <div class="category">
+            <h2>🌍 <span id="cat10">Anglais</span></h2>
+            <div class="course-grid" id="anglais"></div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // 📚 COURSES DATABASE - EDIT THIS TO ADD/REMOVE COURSES
+        // ========================================
+        const courses = [
+            // Add your courses here following this format:
+            // {
+            //     title: "Course Title",
+            //     description: "Course description",
+            //     category: "category_name",
+            //     driveLink: "https://your-link.com",
+            //     uploadDate: "2025-04-10"
+            // },
+        ];
+        // ========================================
+        // END OF COURSES DATABASE
+        // ========================================
+
+        // Translations
+        const translations = {
+            en: {
+                siteTitle: "Class 2025 Course Library",
+                totalCourses: "Total Courses",
+                categories: "Categories",
+                totalDownloads: "Downloads",
+                requestLink: "Request Course Upload",
+                teacherLink: "Teacher Admin Panel",
+                searchPlaceholder: "🔍 Search courses...",
+                noCoursesYet: "No courses yet in this category",
+                uploadDate: "Uploaded",
+                downloadBtn: "📥 Download PDF",
+                cat1: "Programming Workshop",
+                cat2: "Logic Systems & Computer Architecture",
+                cat3: "Algorithms & Data Structures",
+                cat4: "Formal Logic",
+                cat5: "Multimedia Technologies",
+                cat6: "Communication Techniques",
+                cat7: "Analysis",
+                cat8: "Algebra",
+                cat9: "Operating Systems",
+                cat10: "English"
+            },
+            fr: {
+                siteTitle: "Bibliothèque de Cours Classe 2025",
+                totalCourses: "Total Cours",
+                categories: "Catégories",
+                totalDownloads: "Téléchargements",
+                requestLink: "Demander un Ajout de Cours",
+                teacherLink: "Panneau Admin Enseignant",
+                searchPlaceholder: "🔍 Rechercher...",
+                noCoursesYet: "Pas encore de cours",
+                uploadDate: "Ajouté le",
+                downloadBtn: "📥 Télécharger PDF",
+                cat1: "Atelier Programmation",
+                cat2: "Système Logique et Architecture",
+                cat3: "Algorithme et Structure de Données",
+                cat4: "Logique Formelle",
+                cat5: "Technologies Multimédia",
+                cat6: "Technique de Communication",
+                cat7: "Analyse",
+                cat8: "Algèbre",
+                cat9: "Système d'Exploitation",
+                cat10: "Anglais"
+            },
+            ar: {
+                siteTitle: "مكتبة دورات الصف 2025",
+                totalCourses: "إجمالي الدورات",
+                categories: "الفئات",
+                totalDownloads: "التنزيلات",
+                requestLink: "طلب إضافة دورة",
+                teacherLink: "لوحة تحكم المعلم",
+                searchPlaceholder: "🔍 ابحث...",
+                noCoursesYet: "لا توجد دورات بعد",
+                uploadDate: "تاريخ الرفع",
+                downloadBtn: "📥 تحميل PDF",
+                cat1: "ورشة البرمجة",
+                cat2: "الأنظمة المنطقية والبنية",
+                cat3: "الخوارزميات وهياكل البيانات",
+                cat4: "المنطق الرسمي",
+                cat5: "تقنيات الوسائط المتعددة",
+                cat6: "تقنيات الاتصال",
+                cat7: "التحليل",
+                cat8: "الجبر",
+                cat9: "أنظمة التشغيل",
+                cat10: "الإنجليزية"
+            }
+        };
+
+        let currentLanguage = 'en';
+        let downloadCount = parseInt(localStorage.getItem('downloadCount') || '0');
+
+        const categoryIcons = {
+            programmation: '💻',
+            systeme_logique: '🔧',
+            algorithme: '📊',
+            logique: '🧠',
+            multimedia: '🎨',
+            communication: '📡',
+            analyse: '📐',
+            algebre: '🔢',
+            systeme_exploitation: '⚙️',
+            anglais: '🌍'
+        };
+
+        // Initialize
+        renderCourses();
+        updateStats();
+
+        // Language change
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const t = translations[lang];
+            
+            document.getElementById('siteTitle').textContent = t.siteTitle;
+            document.getElementById('labelCourses').textContent = t.totalCourses;
+            document.getElementById('labelCategories').textContent = t.categories;
+            document.getElementById('labelDownloads').textContent = t.totalDownloads;
+            document.getElementById('requestLink').textContent = t.requestLink;
+            document.getElementById('teacherLink').textContent = t.teacherLink;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById('cat' + i).textContent = t['cat' + i];
+            }
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderCourses();
+        }
+
+        // Render courses
+        function renderCourses() {
+            const t = translations[currentLanguage];
+            const categories = ['programmation', 'systeme_logique', 'algorithme', 'logique', 
+                              'multimedia', 'communication', 'analyse', 'algebre', 
+                              'systeme_exploitation', 'anglais'];
+
+            categories.forEach(category => {
+                const container = document.getElementById(category);
+                container.innerHTML = '';
+
+                const categoryCourses = courses.filter(c => c.category === category);
+
+                if (categoryCourses.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>${t.noCoursesYet}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                categoryCourses.forEach(course => {
+                    const card = document.createElement('div');
+                    card.className = 'course-card';
+                    card.dataset.title = course.title.toLowerCase();
+                    card.dataset.desc = (course.description || '').toLowerCase();
+                    
+                    const date = new Date(course.uploadDate).toLocaleDateString();
+                    
+                    card.innerHTML = `
+                        <div class="course-icon">${categoryIcons[category]}</div>
+                        <div class="course-title">${course.title}</div>
+                        <div class="course-description">${course.description}</div>
+                        <div class="course-meta">
+                            <span>📅 ${date}</span>
+                            <span>📄 PDF</span>
+                        </div>
+                        <a href="${course.driveLink}" target="_blank" class="download-btn" onclick="incrementDownloads()">
+                            ${t.downloadBtn}
+                        </a>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        // Increment downloads
+        function incrementDownloads() {
+            downloadCount++;
+            localStorage.setItem('downloadCount', downloadCount.toString());
+            updateStats();
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalCourses').textContent = courses.length;
+            document.getElementById('totalDownloads').textContent = downloadCount;
+        }
+
+        // Filter courses
+        function filterCourses() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.course-card').forEach(card => {
+                const title = card.dataset.title;
+                const desc = card.dataset.desc;
+                
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+    <!-- StatCounter Code -->
+    <script type="text/javascript">
+    var sc_project=13174642; 
+    var sc_invisible=1; 
+    var sc_security="fab45bbd"; 
+    </script>
+    <script type="text/javascript"
+    src="https://www.statcounter.com/counter/counter.js" async></script>
+    <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img class="statcounter"
+    src="https://c.statcounter.com/13174642/0/fab45bbd/1/" alt="Web Analytics"
+    referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+</body>
+</html>

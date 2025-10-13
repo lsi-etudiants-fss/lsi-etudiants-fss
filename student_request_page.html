@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Course Upload - Class 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            font-size: 1.1em;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .request-section {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .required {
+            color: #e74c3c;
+            font-size: 1.3em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .help-text {
+            font-size: 1em;
+            color: #888;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 22px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.4em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 3px solid #28a745;
+            color: #155724;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: none;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .request-section {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 1.2em;
+                padding: 18px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Course Library</a>
+        
+        <div class="request-section">
+            <h1>📤 Request Course Upload</h1>
+            <p class="subtitle">Have course materials to share with your classmates? Submit your request here and the teacher will review it!</p>
+
+            <div class="info-box">
+                <h3>📋 Before You Submit:</h3>
+                <ul>
+                    <li>✅ Make sure the course doesn't already exist in the library</li>
+                    <li>✅ Provide a clear and descriptive title</li>
+                    <li>✅ Add detailed description of the content</li>
+                    <li>✅ Include a direct download link (Google Drive, Dropbox, OneDrive, etc.)</li>
+                    <li>✅ The teacher will review and respond to your request</li>
+                </ul>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                ✅ <strong>Request submitted successfully!</strong><br>
+                The teacher will review your request and you'll receive a notification via email if you provided one.
+            </div>
+
+            <div class="form-group">
+                <label>Your Name <span class="required">*</span></label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" id="studentEmail" placeholder="your.email@example.com" required>
+                <div class="help-text">📧 You'll receive an email notification when the teacher responds to your request</div>
+            </div>
+
+            <div class="form-group">
+                <label>Course Title <span class="required">*</span></label>
+                <input type="text" id="courseTitle" placeholder="e.g., Advanced Algorithms - Sorting Techniques" required>
+            </div>
+
+            <div class="form-group">
+                <label>Course Description <span class="required">*</span></label>
+                <textarea id="courseDescription" placeholder="Describe the content: topics covered, chapter numbers, what students will learn, etc." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Category <span class="required">*</span></label>
+                <select id="courseCategory" required>
+                    <option value="">-- Select a category --</option>
+                    <option value="programmation">💻 Atelier Programmation</option>
+                    <option value="systeme_logique">🔧 Système Logique et Architecture</option>
+                    <option value="algorithme">📊 Algorithme et Structure de Données</option>
+                    <option value="logique">🧠 Logique Formelle</option>
+                    <option value="multimedia">🎨 Technologies Multimédia</option>
+                    <option value="communication">📡 Technique de Communication</option>
+                    <option value="analyse">📐 Analyse</option>
+                    <option value="algebre">🔢 Algèbre</option>
+                    <option value="systeme_exploitation">⚙️ Système d'Exploitation</option>
+                    <option value="anglais">🌍 Anglais</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Download Link <span class="required">*</span></label>
+                <input type="url" id="downloadLink" placeholder="https://drive.google.com/... or any file hosting link" required>
+                <div class="help-text">🔗 Paste a direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Notes (Optional)</label>
+                <textarea id="additionalNotes" placeholder="Any additional information for the teacher..." rows="4"></textarea>
+            </div>
+
+            <button class="btn" onclick="submitRequest()" id="submitBtn">Submit Request</button>
+        </div>
+    </div>
+
+    <script>
+        function submitRequest() {
+            const studentName = document.getElementById('studentName').value.trim();
+            const email = document.getElementById('studentEmail').value.trim();
+            const courseTitle = document.getElementById('courseTitle').value.trim();
+            const description = document.getElementById('courseDescription').value.trim();
+            const category = document.getElementById('courseCategory').value;
+            const downloadLink = document.getElementById('downloadLink').value.trim();
+            const notes = document.getElementById('additionalNotes').value.trim();
+
+            // Validation
+            if (!studentName || !email || !courseTitle || !description || !category || !downloadLink) {
+                alert('⚠️ Please fill in all required fields!');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('⚠️ Please enter a valid email address!');
+                return;
+            }
+
+            // URL validation
+            try {
+                new URL(downloadLink);
+            } catch (e) {
+                alert('⚠️ Please enter a valid URL for the download link!');
+                return;
+            }
+
+            // Create request object
+            const request = {
+                id: Date.now(),
+                studentName,
+                email,
+                courseTitle,
+                description,
+                category,
+                downloadLink,
+                notes,
+                status: 'pending',
+                date: new Date().toISOString(),
+                timestamp: Date.now()
+            };
+
+            // Save to localStorage
+            const requests = JSON.parse(localStorage.getItem('courseRequests') || '[]');
+            requests.unshift(request);
+            localStorage.setItem('courseRequests', JSON.stringify(requests));
+
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            
+            // Clear form
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('courseTitle').value = '';
+            document.getElementById('courseDescription').value = '';
+            document.getElementById('courseCategory').value = '';
+            document.getElementById('downloadLink').value = '';
+            document.getElementById('additionalNotes').value = '';
+
+            // Scroll to success message
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Hide success message after 8 seconds
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 8000);
+        }
+
+        // Allow Enter key to submit in input fields (except textarea)
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitRequest();
+                }
+            });
+        });
+    </script>
+
+    <!-- StatCounter Code -->
+    <script type="text/javascript">
+    var sc_project=13174642; 
+    var sc_invisible=1; 
+    var sc_security="fab45bbd"; 
+    </script>
+    <script type="text/javascript"
+    src="https://www.statcounter.com/counter/counter.js" async></script>
+    <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img class="statcounter"
+    src="https://c.statcounter.com/13174642/0/fab45bbd/1/" alt="Web Analytics"
+    referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+</body>
+</html>
