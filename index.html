@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="fss.jpg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <title>Class 2025 Course Library</title>
     <style>
         * {
@@ -17,527 +18,778 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
             min-height: 100vh;
-            padding: 20px;
+            color: #1e293b;
             transition: background 0.3s ease;
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #0f172a;
+            color: #e2e8f0;
         }
 
-        .container {
+        /* Navigation Bar */
+        nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom-color: #334155;
+        }
+
+        .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-        }
-
-        header {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-mode header {
-            background: #0f3460;
-            color: white;
-        }
-
-        .header-top {
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 10px;
             align-items: center;
         }
 
-        header h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        body.dark-mode header h1 {
-            color: #e94560;
-        }
-
-        header p {
-            color: #666;
-            font-size: 1.1em;
-        }
-
-        body.dark-mode header p {
-            color: #ccc;
-        }
-
-        .language-selector {
+        .nav-brand {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        body.dark-mode .nav-brand {
+            color: #f1f5f9;
+        }
+
+        .nav-brand .logo {
+            font-size: 1.5em;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .lang-btn, .theme-toggle {
-            padding: 10px 20px;
-            border: none;
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
-            background: #e0e0e0;
+            background: transparent;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
-            font-size: 1em;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+            color: #64748b;
         }
 
-        .theme-toggle {
-            padding: 10px 15px;
-            font-size: 1.5em;
-        }
-
+        body.dark-mode .lang-btn,
         body.dark-mode .theme-toggle {
-            background: #533483;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+
+        .lang-btn:hover, .theme-toggle:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        body.dark-mode .lang-btn:hover,
+        body.dark-mode .theme-toggle:hover {
+            background: #1e293b;
+            border-color: #475569;
         }
 
         .lang-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #6366f1;
             color: white;
+            border-color: #6366f1;
         }
 
-        body.dark-mode .lang-btn {
-            background: #533483;
-            color: white;
-        }
-
-        body.dark-mode .lang-btn.active {
-            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            text-align: center;
-            min-width: 150px;
-        }
-
-        body.dark-mode .stat-card {
-            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
-        }
-
-        .stat-card .number {
-            font-size: 2em;
-            font-weight: bold;
-        }
-
-        .stat-card .label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .action-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .action-link, .random-course-btn {
-            background: white;
-            padding: 20px 35px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #667eea;
-            font-weight: 600;
+        .theme-toggle {
             font-size: 1.2em;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            padding: 8px 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 32px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-mode .hero h1 {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25em;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        body.dark-mode .hero p {
+            color: #94a3b8;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 0 32px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .stat-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #6366f1;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .stat-number {
+            color: #818cf8;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        body.dark-mode .stat-label {
+            color: #94a3b8;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 32px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            text-decoration: none;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            border: none;
+            gap: 16px;
+            border: 2px solid #f1f5f9;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        body.dark-mode .action-link,
-        body.dark-mode .random-course-btn {
-            background: #0f3460;
-            color: #e94560;
+        body.dark-mode .action-card {
+            background: #1e293b;
+            border-color: #334155;
         }
 
-        .action-link:hover, .random-course-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .action-card:hover {
+            transform: translateY(-4px);
+            border-color: #6366f1;
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.12);
         }
 
-        .action-link.teacher {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        .action-card.primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-color: transparent;
             color: white;
         }
 
-        .random-course-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .action-card.secondary {
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            border-color: transparent;
             color: white;
         }
 
-        body.dark-mode .random-course-btn {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        .action-card.tertiary {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            border-color: transparent;
+            color: white;
         }
 
-        .search-bar {
-            margin-bottom: 30px;
+        .action-icon {
+            font-size: 3em;
         }
 
-        .search-bar input {
+        .action-title {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        body.dark-mode .action-title {
+            color: #f1f5f9;
+        }
+
+        .action-card.primary .action-title,
+        .action-card.secondary .action-title,
+        .action-card.tertiary .action-title {
+            color: white;
+        }
+
+        .action-description {
+            font-size: 0.9em;
+            color: #64748b;
+            text-align: center;
+        }
+
+        body.dark-mode .action-description {
+            color: #94a3b8;
+        }
+
+        .action-card.primary .action-description,
+        .action-card.secondary .action-description,
+        .action-card.tertiary .action-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 32px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
             width: 100%;
-            padding: 15px 15px 15px 50px;
-            border: 2px solid white;
-            border-radius: 10px;
-            font-size: 1.1em;
+            padding: 18px 24px 18px 52px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.05em;
             background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: #1e293b;
         }
 
-        body.dark-mode .search-bar input {
-            background: #0f3460;
-            color: white;
-            border-color: #533483;
+        body.dark-mode .search-input {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-color: #334155;
         }
 
-        .search-bar input:focus {
+        .search-input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
-        .category {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-            transition: background 0.3s ease;
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #94a3b8;
         }
 
-        body.dark-mode .category {
-            background: #0f3460;
+        /* Content Container */
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
         }
 
-        .category h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+        /* Category Section */
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f1f5f9;
         }
 
-        body.dark-mode .category h2 {
-            color: #e94560;
+        body.dark-mode .category-header {
+            border-bottom-color: #334155;
         }
 
+        .category-icon {
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 16px;
+        }
+
+        body.dark-mode .category-icon {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .category-title {
+            font-size: 1.75em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        body.dark-mode .category-title {
+            color: #f1f5f9;
+        }
+
+        .category-count {
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        body.dark-mode .category-count {
+            background: #334155;
+            color: #94a3b8;
+        }
+
+        /* Course Grid */
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .course-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
             position: relative;
         }
 
         body.dark-mode .course-card {
-            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
-            color: white;
+            background: #1e293b;
+            border-color: #334155;
         }
 
         .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            border-color: #6366f1;
         }
 
-        .new-badge {
+        .course-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
             color: white;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.75em;
             font-weight: 700;
-            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-            animation: pulse-badge 2s infinite;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+            z-index: 1;
         }
 
-        @keyframes pulse-badge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .course-header {
+            padding: 32px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .course-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
+        body.dark-mode .course-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-bottom-color: #334155;
+        }
+
+        .course-icon-large {
+            font-size: 3.5em;
+            margin-bottom: 16px;
+            display: block;
         }
 
         .course-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         body.dark-mode .course-title {
-            color: #fff;
+            color: #f1f5f9;
         }
 
         .course-description {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-            min-height: 40px;
+            color: #64748b;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
 
         body.dark-mode .course-description {
-            color: #ccc;
+            color: #94a3b8;
+        }
+
+        .course-body {
+            padding: 24px 32px;
         }
 
         .course-meta {
             display: flex;
-            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
             font-size: 0.85em;
-            color: #888;
-            margin: 15px 0;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            color: #94a3b8;
         }
 
-        body.dark-mode .course-meta {
-            color: #aaa;
-            border-top-color: rgba(255,255,255,0.1);
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .download-btn {
-            background: #667eea;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            text-align: center;
-            transition: background 0.3s;
+        .download-button {
             width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
         }
 
-        body.dark-mode .download-btn {
-            background: #e94560;
-        }
-
-        .download-btn:hover {
-            background: #764ba2;
-        }
-
-        body.dark-mode .download-btn:hover {
-            background: #d63447;
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #999;
+            padding: 80px 40px;
+            color: #94a3b8;
         }
 
-        body.dark-mode .empty-state {
-            color: #666;
-        }
-
-        .empty-state-icon {
+        .empty-icon {
             font-size: 5em;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+
+        .empty-text {
+            font-size: 1.1em;
+            color: #64748b;
+        }
+
+        body.dark-mode .empty-text {
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
+            .nav-container {
+                padding: 12px 20px;
+            }
+
+            .nav-brand {
+                font-size: 1.1em;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .stats-bar,
+            .quick-actions,
+            .search-section,
+            .content-container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .course-grid {
                 grid-template-columns: 1fr;
             }
-
-            .action-links {
-                flex-direction: column;
-            }
-
-            .action-link, .random-course-btn {
-                width: 100%;
-                justify-content: center;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-top">
-                <div>
-                    <h1>📚 <span id="siteTitle">Class 2025 Course Library</span></h1>
-                    <p id="siteSubtitle">Computer Science & Mathematics Resources</p>
-                </div>
-                <div class="header-controls">
-                    <div class="language-selector">
-                        <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
-                        <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
-                        <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
-                    </div>
-                    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
-                        <span id="themeIcon">🌙</span>
-                    </button>
-                </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo">📚</span>
+                <span id="navTitle">Class 2025 Library</span>
             </div>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="number" id="totalCourses">0</div>
-                    <div class="label" id="labelCourses">Total Courses</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number" id="monthCourses">0</div>
-                    <div class="label" id="labelMonthCourses">This Month</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">10</div>
-                    <div class="label" id="labelCategories">Categories</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number" id="totalDownloads">0</div>
-                    <div class="label" id="labelDownloads">Downloads</div>
-                </div>
+            <div class="nav-controls">
+                <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
             </div>
-        </header>
-
-        <!-- Action Links -->
-        <div class="action-links">
-            <a href="student_request_page.html" class="action-link">
-                📤 <span id="requestLink">Request Course Upload</span>
-            </a>
-            <a href="teacher_admin_panel.html" class="action-link teacher">
-                👨‍🏫 <span id="teacherLink">Teacher Admin Panel</span>
-            </a>
-            <button class="random-course-btn" onclick="goToRandomCourse()">
-                🎲 <span id="randomLink">Random Course</span>
-            </button>
         </div>
+    </nav>
 
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="🔍 Search courses..." oninput="filterCourses()">
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 id="heroTitle">Class 2025 Course Library</h1>
+        <p id="heroSubtitle">Your comprehensive resource hub for Computer Science & Mathematics</p>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" id="totalCourses">0</div>
+            <div class="stat-label" id="labelCourses">Total Courses</div>
         </div>
-
-        <!-- Courses Section -->
-        <div class="category">
-            <h2>💻 <span id="cat1">Atelier Programmation</span></h2>
-            <div class="course-grid" id="programmation"></div>
+        <div class="stat-item">
+            <div class="stat-number" id="monthCourses">0</div>
+            <div class="stat-label" id="labelMonthCourses">This Month</div>
         </div>
-
-        <div class="category">
-            <h2>🔧 <span id="cat2">Système Logique et Architecture</span></h2>
-            <div class="course-grid" id="systeme_logique"></div>
+        <div class="stat-item">
+            <div class="stat-number">10</div>
+            <div class="stat-label" id="labelCategories">Categories</div>
         </div>
-
-        <div class="category">
-            <h2>📊 <span id="cat3">Algorithme et Structure de Données</span></h2>
-            <div class="course-grid" id="algorithme"></div>
-        </div>
-
-        <div class="category">
-            <h2>🧠 <span id="cat4">Logique Formelle</span></h2>
-            <div class="course-grid" id="logique"></div>
-        </div>
-
-        <div class="category">
-            <h2>🎨 <span id="cat5">Technologies Multimédia</span></h2>
-            <div class="course-grid" id="multimedia"></div>
-        </div>
-
-        <div class="category">
-            <h2>📡 <span id="cat6">Technique de Communication</span></h2>
-            <div class="course-grid" id="communication"></div>
-        </div>
-
-        <div class="category">
-            <h2>📐 <span id="cat7">Analyse</span></h2>
-            <div class="course-grid" id="analyse"></div>
-        </div>
-
-        <div class="category">
-            <h2>🔢 <span id="cat8">Algèbre</span></h2>
-            <div class="course-grid" id="algebre"></div>
-        </div>
-
-        <div class="category">
-            <h2>⚙️ <span id="cat9">Système d'Exploitation</span></h2>
-            <div class="course-grid" id="systeme_exploitation"></div>
-        </div>
-
-        <div class="category">
-            <h2>🌍 <span id="cat10">Anglais</span></h2>
-            <div class="course-grid" id="anglais"></div>
+        <div class="stat-item">
+            <div class="stat-number" id="totalDownloads">0</div>
+            <div class="stat-label" id="labelDownloads">Downloads</div>
         </div>
     </div>
 
-    <script>
-        // ========================================
-        // 📚 COURSES DATABASE - EDIT THIS TO ADD/REMOVE COURSES
-        // ========================================
-        const courses = [
-            // Add your courses here following this format:
-            // {
-            //     title: "Course Title",
-            //     description: "Course description",
-            //     category: "category_name",
-            //     driveLink: "https://your-link.com",
-            //     uploadDate: "2025-04-10"
-            // },
-        ];
-        // ========================================
-        // END OF COURSES DATABASE
-        // ========================================
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <div class="action-grid">
+            <a href="student_request_page.html" class="action-card primary">
+                <span class="action-icon">📤</span>
+                <h3 class="action-title" id="actionRequest">Request Course</h3>
+                <p class="action-description" id="actionRequestDesc">Submit new course materials</p>
+            </a>
+            <a href="teacher_admin_panel.html" class="action-card secondary">
+                <span class="action-icon">👨‍🏫</span>
+                <h3 class="action-title" id="actionTeacher">Teacher Panel</h3>
+                <p class="action-description" id="actionTeacherDesc">Manage course requests</p>
+            </a>
+            <button class="action-card tertiary" onclick="goToRandomCourse()">
+                <span class="action-icon">🎲</span>
+                <h3 class="action-title" id="actionRandom">Random Course</h3>
+                <p class="action-description" id="actionRandomDesc">Discover something new</p>
+            </button>
+        </div>
+    </section>
 
-        // Translations
+    <!-- Search -->
+    <section class="search-section">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search courses..." oninput="filterCourses()">
+        </div>
+    </section>
+
+    <!-- Course Categories -->
+    <div class="content-container">
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">💻</div>
+                <h2 class="category-title" id="cat1">Atelier Programmation</h2>
+                <span class="category-count" id="count1">0 courses</span>
+            </div>
+            <div class="course-grid" id="programmation"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🔧</div>
+                <h2 class="category-title" id="cat2">Système Logique et Architecture</h2>
+                <span class="category-count" id="count2">0 courses</span>
+            </div>
+            <div class="course-grid" id="systeme_logique"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">📊</div>
+                <h2 class="category-title" id="cat3">Algorithme et Structure de Données</h2>
+                <span class="category-count" id="count3">0 courses</span>
+            </div>
+            <div class="course-grid" id="algorithme"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🧠</div>
+                <h2 class="category-title" id="cat4">Logique Formelle</h2>
+                <span class="category-count" id="count4">0 courses</span>
+            </div>
+            <div class="course-grid" id="logique"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🎨</div>
+                <h2 class="category-title" id="cat5">Technologies Multimédia</h2>
+                <span class="category-count" id="count5">0 courses</span>
+            </div>
+            <div class="course-grid" id="multimedia"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">📡</div>
+                <h2 class="category-title" id="cat6">Technique de Communication</h2>
+                <span class="category-count" id="count6">0 courses</span>
+            </div>
+            <div class="course-grid" id="communication"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">📐</div>
+                <h2 class="category-title" id="cat7">Analyse</h2>
+                <span class="category-count" id="count7">0 courses</span>
+            </div>
+            <div class="course-grid" id="analyse"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🔢</div>
+                <h2 class="category-title" id="cat8">Algèbre</h2>
+                <span class="category-count" id="count8">0 courses</span>
+            </div>
+            <div class="course-grid" id="algebre"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">⚙️</div>
+                <h2 class="category-title" id="cat9">Système d'Exploitation</h2>
+                <span class="category-count" id="count9">0 courses</span>
+            </div>
+            <div class="course-grid" id="systeme_exploitation"></div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🌍</div>
+                <h2 class="category-title" id="cat10">Anglais</h2>
+                <span class="category-count" id="count10">0 courses</span>
+            </div>
+            <div class="course-grid" id="anglais"></div>
+        </section>
+    </div>
+
+    <script>
+        const courses = [];
+
         const translations = {
             en: {
-                siteTitle: "Class 2025 Course Library",
+                navTitle: "Class 2025 Library",
+                heroTitle: "Class 2025 Course Library",
+                heroSubtitle: "Your comprehensive resource hub for Computer Science & Mathematics",
                 totalCourses: "Total Courses",
                 monthCourses: "This Month",
                 categories: "Categories",
                 totalDownloads: "Downloads",
-                requestLink: "Request Course Upload",
-                teacherLink: "Teacher Admin Panel",
-                randomLink: "Random Course",
-                searchPlaceholder: "🔍 Search courses...",
+                actionRequest: "Request Course",
+                actionRequestDesc: "Submit new course materials",
+                actionTeacher: "Teacher Panel",
+                actionTeacherDesc: "Manage course requests",
+                actionRandom: "Random Course",
+                actionRandomDesc: "Discover something new",
+                searchPlaceholder: "Search courses...",
                 noCoursesYet: "No courses yet in this category",
+                coursesCount: "courses",
                 uploadDate: "Uploaded",
-                downloadBtn: "📥 Download PDF",
+                downloadBtn: "📥 Download Course",
                 newBadge: "NEW!",
                 cat1: "Programming Workshop",
                 cat2: "Logic Systems & Computer Architecture",
@@ -551,18 +803,24 @@
                 cat10: "English"
             },
             fr: {
-                siteTitle: "Bibliothèque de Cours Classe 2025",
+                navTitle: "Bibliothèque Classe 2025",
+                heroTitle: "Bibliothèque de Cours Classe 2025",
+                heroSubtitle: "Votre hub de ressources complet pour l'informatique et les mathématiques",
                 totalCourses: "Total Cours",
                 monthCourses: "Ce Mois",
                 categories: "Catégories",
                 totalDownloads: "Téléchargements",
-                requestLink: "Demander un Ajout de Cours",
-                teacherLink: "Panneau Admin Enseignant",
-                randomLink: "Cours Aléatoire",
-                searchPlaceholder: "🔍 Rechercher...",
+                actionRequest: "Demander un Cours",
+                actionRequestDesc: "Soumettre de nouveaux matériels",
+                actionTeacher: "Panneau Enseignant",
+                actionTeacherDesc: "Gérer les demandes de cours",
+                actionRandom: "Cours Aléatoire",
+                actionRandomDesc: "Découvrez quelque chose de nouveau",
+                searchPlaceholder: "Rechercher des cours...",
                 noCoursesYet: "Pas encore de cours",
+                coursesCount: "cours",
                 uploadDate: "Ajouté le",
-                downloadBtn: "📥 Télécharger PDF",
+                downloadBtn: "📥 Télécharger le Cours",
                 newBadge: "NOUVEAU!",
                 cat1: "Atelier Programmation",
                 cat2: "Système Logique et Architecture",
@@ -576,18 +834,24 @@
                 cat10: "Anglais"
             },
             ar: {
-                siteTitle: "مكتبة دورات الصف 2025",
+                navTitle: "مكتبة الصف 2025",
+                heroTitle: "مكتبة دورات الصف 2025",
+                heroSubtitle: "مركز الموارد الشامل لعلوم الحاسوب والرياضيات",
                 totalCourses: "إجمالي الدورات",
                 monthCourses: "هذا الشهر",
                 categories: "الفئات",
                 totalDownloads: "التنزيلات",
-                requestLink: "طلب إضافة دورة",
-                teacherLink: "لوحة تحكم المعلم",
-                randomLink: "دورة عشوائية",
-                searchPlaceholder: "🔍 ابحث...",
+                actionRequest: "طلب دورة",
+                actionRequestDesc: "تقديم مواد دورة جديدة",
+                actionTeacher: "لوحة المعلم",
+                actionTeacherDesc: "إدارة طلبات الدورات",
+                actionRandom: "دورة عشوائية",
+                actionRandomDesc: "اكتشف شيئًا جديدًا",
+                searchPlaceholder: "البحث عن الدورات...",
                 noCoursesYet: "لا توجد دورات بعد",
+                coursesCount: "دورات",
                 uploadDate: "تاريخ الرفع",
-                downloadBtn: "📥 تحميل PDF",
+                downloadBtn: "📥 تحميل الدورة",
                 newBadge: "جديد!",
                 cat1: "ورشة البرمجة",
                 cat2: "الأنظمة المنطقية والبنية",
@@ -618,7 +882,10 @@
             anglais: '🌍'
         };
 
-        // Dark mode
+        const categories = ['programmation', 'systeme_logique', 'algorithme', 'logique', 
+                          'multimedia', 'communication', 'analyse', 'algebre', 
+                          'systeme_exploitation', 'anglais'];
+
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -626,13 +893,11 @@
             document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
         }
 
-        // Load dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
             document.getElementById('themeIcon').textContent = '☀️';
         }
 
-        // Check if course is new (within 3 days)
         function isNewCourse(uploadDate) {
             const uploaded = new Date(uploadDate);
             const now = new Date();
@@ -641,7 +906,6 @@
             return diffDays <= 3;
         }
 
-        // Count courses from current month
         function countMonthCourses() {
             const now = new Date();
             const currentMonth = now.getMonth();
@@ -654,7 +918,6 @@
             }).length;
         }
 
-        // Random course
         function goToRandomCourse() {
             if (courses.length === 0) {
                 alert('No courses available yet!');
@@ -664,13 +927,11 @@
             const randomCourse = courses[Math.floor(Math.random() * courses.length)];
             const categoryElement = document.getElementById(randomCourse.category);
             
-            // Scroll to category
-            categoryElement.closest('.category').scrollIntoView({ 
+            categoryElement.closest('.category-section').scrollIntoView({ 
                 behavior: 'smooth', 
-                block: 'center' 
+                block: 'start' 
             });
             
-            // Highlight the course card briefly
             setTimeout(() => {
                 const cards = categoryElement.querySelectorAll('.course-card');
                 const courseCards = Array.from(cards).filter(card => 
@@ -679,34 +940,39 @@
                 
                 if (courseCards.length > 0) {
                     const targetCard = courseCards[0];
-                    targetCard.style.transform = 'scale(1.05)';
-                    targetCard.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.4)';
+                    targetCard.style.transform = 'translateY(-8px) scale(1.02)';
+                    targetCard.style.boxShadow = '0 24px 48px rgba(99, 102, 241, 0.25)';
+                    targetCard.style.borderColor = '#6366f1';
                     
                     setTimeout(() => {
                         targetCard.style.transform = '';
                         targetCard.style.boxShadow = '';
-                    }, 2000);
+                        targetCard.style.borderColor = '';
+                    }, 2500);
                 }
-            }, 500);
+            }, 600);
         }
 
-        // Initialize
         renderCourses();
         updateStats();
 
-        // Language change
         function changeLanguage(lang) {
             currentLanguage = lang;
             const t = translations[lang];
             
-            document.getElementById('siteTitle').textContent = t.siteTitle;
+            document.getElementById('navTitle').textContent = t.navTitle;
+            document.getElementById('heroTitle').textContent = t.heroTitle;
+            document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
             document.getElementById('labelCourses').textContent = t.totalCourses;
             document.getElementById('labelMonthCourses').textContent = t.monthCourses;
             document.getElementById('labelCategories').textContent = t.categories;
             document.getElementById('labelDownloads').textContent = t.totalDownloads;
-            document.getElementById('requestLink').textContent = t.requestLink;
-            document.getElementById('teacherLink').textContent = t.teacherLink;
-            document.getElementById('randomLink').textContent = t.randomLink;
+            document.getElementById('actionRequest').textContent = t.actionRequest;
+            document.getElementById('actionRequestDesc').textContent = t.actionRequestDesc;
+            document.getElementById('actionTeacher').textContent = t.actionTeacher;
+            document.getElementById('actionTeacherDesc').textContent = t.actionTeacherDesc;
+            document.getElementById('actionRandom').textContent = t.actionRandom;
+            document.getElementById('actionRandomDesc').textContent = t.actionRandomDesc;
             document.getElementById('searchInput').placeholder = t.searchPlaceholder;
             
             for (let i = 1; i <= 10; i++) {
@@ -719,24 +985,25 @@
             renderCourses();
         }
 
-        // Render courses
         function renderCourses() {
             const t = translations[currentLanguage];
-            const categories = ['programmation', 'systeme_logique', 'algorithme', 'logique', 
-                              'multimedia', 'communication', 'analyse', 'algebre', 
-                              'systeme_exploitation', 'anglais'];
 
-            categories.forEach(category => {
+            categories.forEach((category, index) => {
                 const container = document.getElementById(category);
+                const countElement = document.getElementById('count' + (index + 1));
                 container.innerHTML = '';
 
                 const categoryCourses = courses.filter(c => c.category === category);
+                
+                if (countElement) {
+                    countElement.textContent = `${categoryCourses.length} ${t.coursesCount}`;
+                }
 
                 if (categoryCourses.length === 0) {
                     container.innerHTML = `
                         <div class="empty-state">
-                            <div class="empty-state-icon">🔭</div>
-                            <p>${t.noCoursesYet}</p>
+                            <div class="empty-icon">📭</div>
+                            <p class="empty-text">${t.noCoursesYet}</p>
                         </div>
                     `;
                     return;
@@ -752,38 +1019,39 @@
                     const isNew = isNewCourse(course.uploadDate);
                     
                     card.innerHTML = `
-                        ${isNew ? `<span class="new-badge">${t.newBadge}</span>` : ''}
-                        <div class="course-icon">${categoryIcons[category]}</div>
-                        <div class="course-title">${course.title}</div>
-                        <div class="course-description">${course.description}</div>
-                        <div class="course-meta">
-                            <span>📅 ${date}</span>
-                            <span>📄 PDF</span>
+                        ${isNew ? `<div class="course-badge">${t.newBadge}</div>` : ''}
+                        <div class="course-header">
+                            <span class="course-icon-large">${categoryIcons[category]}</span>
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-description">${course.description}</p>
                         </div>
-                        <a href="${course.driveLink}" target="_blank" class="download-btn" onclick="incrementDownloads()">
-                            ${t.downloadBtn}
-                        </a>
+                        <div class="course-body">
+                            <div class="course-meta">
+                                <span class="meta-item">📅 ${date}</span>
+                                <span class="meta-item">📄 PDF</span>
+                            </div>
+                            <a href="${course.driveLink}" target="_blank" class="download-button" onclick="incrementDownloads()">
+                                ${t.downloadBtn}
+                            </a>
+                        </div>
                     `;
                     container.appendChild(card);
                 });
             });
         }
 
-        // Increment downloads
         function incrementDownloads() {
             downloadCount++;
             localStorage.setItem('downloadCount', downloadCount.toString());
             updateStats();
         }
 
-        // Update stats
         function updateStats() {
             document.getElementById('totalCourses').textContent = courses.length;
             document.getElementById('monthCourses').textContent = countMonthCourses();
             document.getElementById('totalDownloads').textContent = downloadCount;
         }
 
-        // Filter courses
         function filterCourses() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             document.querySelectorAll('.course-card').forEach(card => {
@@ -799,7 +1067,6 @@
         }
     </script>
 
-    <!-- StatCounter Code -->
     <script type="text/javascript">
     var sc_project=13174642; 
     var sc_invisible=1; 
@@ -811,6 +1078,5 @@
     href="https://statcounter.com/" target="_blank"><img class="statcounter"
     src="https://c.statcounter.com/13174642/0/fab45bbd/1/" alt="Web Analytics"
     referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-    <!-- End of Statcounter Code -->
 </body>
 </html>
