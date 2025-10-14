@@ -907,11 +907,16 @@
         }
 
         function isNewCourse(uploadDate) {
-            const uploaded = new Date(uploadDate);
+            const uploaded = new Date(uploadDate + 'T00:00:00');
             const now = new Date();
-            const diffTime = Math.abs(now - uploaded);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays <= 3;
+            now.setHours(0, 0, 0, 0);
+            uploaded.setHours(0, 0, 0, 0);
+            
+            const diffTime = now - uploaded;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            console.log('Upload date:', uploadDate, 'Days ago:', diffDays);
+            return diffDays >= 0 && diffDays <= 3;
         }
 
         function countMonthCourses() {
