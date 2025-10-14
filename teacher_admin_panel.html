@@ -128,7 +128,7 @@
             color: #764ba2;
         }
 
-        /* Admin Panel Styles (hidden by default) */
+        /* Admin Panel Styles */
         .admin-content {
             display: none;
         }
@@ -435,6 +435,23 @@
             flex: 1;
         }
 
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .login-box {
                 padding: 30px;
@@ -487,7 +504,7 @@
             </div>
         </div>
 
-        <!-- Admin Panel Content (Hidden until authenticated) -->
+        <!-- Admin Panel Content -->
         <div id="adminContent" class="admin-content">
             <div class="top-bar">
                 <a href="index.html" class="back-link">← Back to Course Library</a>
@@ -529,13 +546,26 @@
             <p id="modalMessage">Send a message to the student:</p>
             <textarea id="responseMessage" placeholder="Your message to the student (optional)..."></textarea>
             <div class="modal-actions">
-                <button class="btn btn-approve" onclick="confirmDecision()">Confirm</button>
+                <button class="btn btn-approve" id="confirmBtn" onclick="confirmDecision()">Confirm</button>
                 <button class="btn btn-decline" onclick="closeModal()">Cancel</button>
             </div>
         </div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("wApAniWRUqiYNGki9");
+        })();
+    </script>
+
     <script>
+        // EmailJS Configuration
+        const EMAILJS_SERVICE_ID = 'service_x7f9eus';
+        const EMAILJS_TEMPLATE_ID = 'template_vl1hq7q';
+
         // Password Protection
         const ADMIN_PASSWORD = 'lsi-1a-fss';
         let currentRequest = null;
@@ -562,7 +592,6 @@
                 input.value = '';
                 input.focus();
                 
-                // Hide error after 3 seconds
                 setTimeout(() => {
                     errorMsg.classList.remove('show');
                 }, 3000);
@@ -732,27 +761,76 @@
             document.getElementById('responseMessage').value = '';
         }
 
+        // Send email via EmailJS
+        function sendEmailNotification(request, action, message) {
+            const statusText = action === 'approve' ? 'APPROVED ✅' : 'DECLINED ❌';
+            const teacherMessage = message || (action === 'approve' 
+                ? 'Your course request has been approved and will be added to the library soon.' 
+                : 'Your course request has been declined. Please contact the teacher for more information.');
+
+            const templateParams = {
+                to_email: request.email,
+                student_name: request.studentName,
+                status: statusText,
+                course_title: request.courseTitle,
+                category: categoryNames[request.category],
+                teacher_message: teacherMessage
+            };
+
+            return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        }
+
         // Confirm decision
-        function confirmDecision() {
+        async function confirmDecision() {
             const message = document.getElementById('responseMessage').value.trim();
             const requests = JSON.parse(localStorage.getItem('courseRequests') || '[]');
             const requestIndex = requests.findIndex(r => r.id === currentRequest);
             
             if (requestIndex !== -1) {
                 const request = requests[requestIndex];
+                const confirmBtn = document.getElementById('confirmBtn');
                 
-                requests[requestIndex].status = currentAction === 'approve' ? 'approved' : 'declined';
-                requests[requestIndex].responseMessage = message;
-                requests[requestIndex].responseDate = new Date().toISOString();
+                // Disable button and show loading
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = 'Sending email...<span class="spinner"></span>';
                 
-                localStorage.setItem('courseRequests', JSON.stringify(requests));
-                
-                alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!`);
-                
-                loadRequests();
+                try {
+                    // Send email
+                    await sendEmailNotification(request, currentAction, message);
+                    
+                    // Update request status
+                    requests[requestIndex].status = currentAction === 'approve' ? 'approved' : 'declined';
+                    requests[requestIndex].responseMessage = message;
+                    requests[requestIndex].responseDate = new Date().toISOString();
+                    
+                    // Save updated requests
+                    localStorage.setItem('courseRequests', JSON.stringify(requests));
+                    
+                    // Show success message
+                    alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!\n\n📧 Email notification sent to ${request.email}`);
+                    
+                    // Reload requests
+                    loadRequests();
+                    closeModal();
+                    
+                } catch (error) {
+                    console.error('Email error:', error);
+                    alert(`⚠️ Request was ${currentAction === 'approve' ? 'approved' : 'declined'}, but email failed to send.\n\nError: ${error.text || 'Unknown error'}\n\nPlease contact the student manually at: ${request.email}`);
+                    
+                    // Still update the status even if email fails
+                    requests[requestIndex].status = currentAction === 'approve' ? 'approved' : 'declined';
+                    requests[requestIndex].responseMessage = message;
+                    requests[requestIndex].responseDate = new Date().toISOString();
+                    localStorage.setItem('courseRequests', JSON.stringify(requests));
+                    
+                    loadRequests();
+                    closeModal();
+                } finally {
+                    // Re-enable button
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = 'Confirm';
+                }
             }
-            
-            closeModal();
         }
 
         // Refresh every 30 seconds
