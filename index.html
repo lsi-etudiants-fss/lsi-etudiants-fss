@@ -12,11 +12,20 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
 
         .container {
@@ -30,6 +39,12 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 30px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background: #0f3460;
+            color: white;
         }
 
         .header-top {
@@ -41,10 +56,20 @@
             gap: 20px;
         }
 
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         header h1 {
             color: #667eea;
             font-size: 2.5em;
             margin-bottom: 10px;
+        }
+
+        body.dark-mode header h1 {
+            color: #e94560;
         }
 
         header p {
@@ -52,12 +77,16 @@
             font-size: 1.1em;
         }
 
+        body.dark-mode header p {
+            color: #ccc;
+        }
+
         .language-selector {
             display: flex;
             gap: 10px;
         }
 
-        .lang-btn {
+        .lang-btn, .theme-toggle {
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
@@ -65,11 +94,30 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .theme-toggle {
+            padding: 10px 15px;
+            font-size: 1.5em;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #533483;
         }
 
         .lang-btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+        }
+
+        body.dark-mode .lang-btn {
+            background: #533483;
+            color: white;
+        }
+
+        body.dark-mode .lang-btn.active {
+            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
         }
 
         .stats {
@@ -86,6 +134,10 @@
             border-radius: 10px;
             text-align: center;
             min-width: 150px;
+        }
+
+        body.dark-mode .stat-card {
+            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
         }
 
         .stat-card .number {
@@ -106,7 +158,7 @@
             flex-wrap: wrap;
         }
 
-        .action-link {
+        .action-link, .random-course-btn {
             background: white;
             padding: 20px 35px;
             border-radius: 12px;
@@ -119,9 +171,17 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            border: none;
+            cursor: pointer;
         }
 
-        .action-link:hover {
+        body.dark-mode .action-link,
+        body.dark-mode .random-course-btn {
+            background: #0f3460;
+            color: #e94560;
+        }
+
+        .action-link:hover, .random-course-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
@@ -129,6 +189,15 @@
         .action-link.teacher {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
             color: white;
+        }
+
+        .random-course-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        body.dark-mode .random-course-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
 
         .search-bar {
@@ -145,6 +214,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
+        body.dark-mode .search-bar input {
+            background: #0f3460;
+            color: white;
+            border-color: #533483;
+        }
+
         .search-bar input:focus {
             outline: none;
             border-color: #667eea;
@@ -156,6 +231,11 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 30px;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode .category {
+            background: #0f3460;
         }
 
         .category h2 {
@@ -165,6 +245,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        body.dark-mode .category h2 {
+            color: #e94560;
         }
 
         .course-grid {
@@ -178,11 +262,36 @@
             padding: 20px;
             border-radius: 10px;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        body.dark-mode .course-card {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            color: white;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .course-icon {
@@ -197,11 +306,19 @@
             margin-bottom: 8px;
         }
 
+        body.dark-mode .course-title {
+            color: #fff;
+        }
+
         .course-description {
             color: #666;
             font-size: 0.9em;
             margin-bottom: 15px;
             min-height: 40px;
+        }
+
+        body.dark-mode .course-description {
+            color: #ccc;
         }
 
         .course-meta {
@@ -212,6 +329,11 @@
             margin: 15px 0;
             padding-top: 15px;
             border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .course-meta {
+            color: #aaa;
+            border-top-color: rgba(255,255,255,0.1);
         }
 
         .download-btn {
@@ -227,14 +349,26 @@
             width: 100%;
         }
 
+        body.dark-mode .download-btn {
+            background: #e94560;
+        }
+
         .download-btn:hover {
             background: #764ba2;
+        }
+
+        body.dark-mode .download-btn:hover {
+            background: #d63447;
         }
 
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: #999;
+        }
+
+        body.dark-mode .empty-state {
+            color: #666;
         }
 
         .empty-state-icon {
@@ -255,7 +389,7 @@
                 flex-direction: column;
             }
 
-            .action-link {
+            .action-link, .random-course-btn {
                 width: 100%;
                 justify-content: center;
             }
@@ -270,16 +404,25 @@
                     <h1>📚 <span id="siteTitle">Class 2025 Course Library</span></h1>
                     <p id="siteSubtitle">Computer Science & Mathematics Resources</p>
                 </div>
-                <div class="language-selector">
-                    <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
-                    <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
-                    <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                <div class="header-controls">
+                    <div class="language-selector">
+                        <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                        <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+                        <button class="lang-btn" onclick="changeLanguage('ar')">AR</button>
+                    </div>
+                    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                        <span id="themeIcon">🌙</span>
+                    </button>
                 </div>
             </div>
             <div class="stats">
                 <div class="stat-card">
                     <div class="number" id="totalCourses">0</div>
                     <div class="label" id="labelCourses">Total Courses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="monthCourses">0</div>
+                    <div class="label" id="labelMonthCourses">This Month</div>
                 </div>
                 <div class="stat-card">
                     <div class="number">10</div>
@@ -300,6 +443,9 @@
             <a href="teacher_admin_panel.html" class="action-link teacher">
                 👨‍🏫 <span id="teacherLink">Teacher Admin Panel</span>
             </a>
+            <button class="random-course-btn" onclick="goToRandomCourse()">
+                🎲 <span id="randomLink">Random Course</span>
+            </button>
         </div>
 
         <!-- Search Bar -->
@@ -382,14 +528,17 @@
             en: {
                 siteTitle: "Class 2025 Course Library",
                 totalCourses: "Total Courses",
+                monthCourses: "This Month",
                 categories: "Categories",
                 totalDownloads: "Downloads",
                 requestLink: "Request Course Upload",
                 teacherLink: "Teacher Admin Panel",
+                randomLink: "Random Course",
                 searchPlaceholder: "🔍 Search courses...",
                 noCoursesYet: "No courses yet in this category",
                 uploadDate: "Uploaded",
                 downloadBtn: "📥 Download PDF",
+                newBadge: "NEW!",
                 cat1: "Programming Workshop",
                 cat2: "Logic Systems & Computer Architecture",
                 cat3: "Algorithms & Data Structures",
@@ -404,14 +553,17 @@
             fr: {
                 siteTitle: "Bibliothèque de Cours Classe 2025",
                 totalCourses: "Total Cours",
+                monthCourses: "Ce Mois",
                 categories: "Catégories",
                 totalDownloads: "Téléchargements",
                 requestLink: "Demander un Ajout de Cours",
                 teacherLink: "Panneau Admin Enseignant",
+                randomLink: "Cours Aléatoire",
                 searchPlaceholder: "🔍 Rechercher...",
                 noCoursesYet: "Pas encore de cours",
                 uploadDate: "Ajouté le",
                 downloadBtn: "📥 Télécharger PDF",
+                newBadge: "NOUVEAU!",
                 cat1: "Atelier Programmation",
                 cat2: "Système Logique et Architecture",
                 cat3: "Algorithme et Structure de Données",
@@ -426,14 +578,17 @@
             ar: {
                 siteTitle: "مكتبة دورات الصف 2025",
                 totalCourses: "إجمالي الدورات",
+                monthCourses: "هذا الشهر",
                 categories: "الفئات",
                 totalDownloads: "التنزيلات",
                 requestLink: "طلب إضافة دورة",
                 teacherLink: "لوحة تحكم المعلم",
+                randomLink: "دورة عشوائية",
                 searchPlaceholder: "🔍 ابحث...",
                 noCoursesYet: "لا توجد دورات بعد",
                 uploadDate: "تاريخ الرفع",
                 downloadBtn: "📥 تحميل PDF",
+                newBadge: "جديد!",
                 cat1: "ورشة البرمجة",
                 cat2: "الأنظمة المنطقية والبنية",
                 cat3: "الخوارزميات وهياكل البيانات",
@@ -463,6 +618,78 @@
             anglais: '🌍'
         };
 
+        // Dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').textContent = '☀️';
+        }
+
+        // Check if course is new (within 3 days)
+        function isNewCourse(uploadDate) {
+            const uploaded = new Date(uploadDate);
+            const now = new Date();
+            const diffTime = Math.abs(now - uploaded);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays <= 3;
+        }
+
+        // Count courses from current month
+        function countMonthCourses() {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            return courses.filter(course => {
+                const uploadDate = new Date(course.uploadDate);
+                return uploadDate.getMonth() === currentMonth && 
+                       uploadDate.getFullYear() === currentYear;
+            }).length;
+        }
+
+        // Random course
+        function goToRandomCourse() {
+            if (courses.length === 0) {
+                alert('No courses available yet!');
+                return;
+            }
+            
+            const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+            const categoryElement = document.getElementById(randomCourse.category);
+            
+            // Scroll to category
+            categoryElement.closest('.category').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+            
+            // Highlight the course card briefly
+            setTimeout(() => {
+                const cards = categoryElement.querySelectorAll('.course-card');
+                const courseCards = Array.from(cards).filter(card => 
+                    card.querySelector('.course-title').textContent === randomCourse.title
+                );
+                
+                if (courseCards.length > 0) {
+                    const targetCard = courseCards[0];
+                    targetCard.style.transform = 'scale(1.05)';
+                    targetCard.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.4)';
+                    
+                    setTimeout(() => {
+                        targetCard.style.transform = '';
+                        targetCard.style.boxShadow = '';
+                    }, 2000);
+                }
+            }, 500);
+        }
+
         // Initialize
         renderCourses();
         updateStats();
@@ -474,10 +701,12 @@
             
             document.getElementById('siteTitle').textContent = t.siteTitle;
             document.getElementById('labelCourses').textContent = t.totalCourses;
+            document.getElementById('labelMonthCourses').textContent = t.monthCourses;
             document.getElementById('labelCategories').textContent = t.categories;
             document.getElementById('labelDownloads').textContent = t.totalDownloads;
             document.getElementById('requestLink').textContent = t.requestLink;
             document.getElementById('teacherLink').textContent = t.teacherLink;
+            document.getElementById('randomLink').textContent = t.randomLink;
             document.getElementById('searchInput').placeholder = t.searchPlaceholder;
             
             for (let i = 1; i <= 10; i++) {
@@ -506,7 +735,7 @@
                 if (categoryCourses.length === 0) {
                     container.innerHTML = `
                         <div class="empty-state">
-                            <div class="empty-state-icon">📭</div>
+                            <div class="empty-state-icon">🔭</div>
                             <p>${t.noCoursesYet}</p>
                         </div>
                     `;
@@ -520,8 +749,10 @@
                     card.dataset.desc = (course.description || '').toLowerCase();
                     
                     const date = new Date(course.uploadDate).toLocaleDateString();
+                    const isNew = isNewCourse(course.uploadDate);
                     
                     card.innerHTML = `
+                        ${isNew ? `<span class="new-badge">${t.newBadge}</span>` : ''}
                         <div class="course-icon">${categoryIcons[category]}</div>
                         <div class="course-title">${course.title}</div>
                         <div class="course-description">${course.description}</div>
@@ -548,6 +779,7 @@
         // Update stats
         function updateStats() {
             document.getElementById('totalCourses').textContent = courses.length;
+            document.getElementById('monthCourses').textContent = countMonthCourses();
             document.getElementById('totalDownloads').textContent = downloadCount;
         }
 
