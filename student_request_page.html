@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="fss.jpg" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Request Course Upload - Class 2025</title>
     <style>
         * {
@@ -18,206 +18,314 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f8fafc;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            color: #1e293b;
+            padding: 30px 20px;
             transition: background 0.3s ease;
+            color: #2d3748;
         }
 
         body.dark-mode {
-            background: #0f172a;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: #e2e8f0;
         }
 
-        /* Navigation Bar */
-        nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode nav {
-            background: rgba(15, 23, 42, 0.8);
-            border-bottom-color: #334155;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 16px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.25em;
-            font-weight: 700;
-            color: #1e293b;
-            text-decoration: none;
-        }
-
-        body.dark-mode .nav-brand {
-            color: #f1f5f9;
-        }
-
-        .nav-brand .logo {
-            font-size: 1.5em;
-        }
-
-        .theme-toggle {
-            padding: 8px 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: all 0.2s ease;
-            color: #64748b;
-        }
-
-        body.dark-mode .theme-toggle {
-            border-color: #334155;
-            color: #94a3b8;
-        }
-
-        .theme-toggle:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-
-        body.dark-mode .theme-toggle:hover {
-            background: #1e293b;
-            border-color: #475569;
-        }
-
-        /* Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 60px 32px 80px;
         }
 
-        /* Header Section */
-        .page-header {
-            text-align: center;
-            margin-bottom: 60px;
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            gap: 16px;
         }
 
-        .page-header h1 {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        body.dark-mode .page-header h1 {
-            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .page-header p {
-            font-size: 1.15em;
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        body.dark-mode .page-header p {
-            color: #94a3b8;
-        }
-
-        /* Info Box */
-        .info-box {
+        .back-link {
             background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 40px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            font-size: 1em;
+            border: 2px solid #e2e8f0;
+        }
+
+        body.dark-mode .back-link {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-color: #4a5568;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .theme-toggle {
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            font-size: 1.4em;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        .request-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .request-section {
+            background: rgba(45, 55, 72, 0.95);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        body.dark-mode h1 {
+            color: #e2e8f0;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.15em;
+            margin-bottom: 36px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        body.dark-mode .subtitle {
+            color: #a0aec0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ebf4ff 0%, #e0e7ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 24px;
+            margin-bottom: 36px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
         }
 
         body.dark-mode .info-box {
-            background: #1e293b;
-            border-color: #334155;
+            background: linear-gradient(135deg, #2d3748 0%, #374151 100%);
+            border-left-color: #5a67d8;
         }
 
         .info-box h3 {
-            font-size: 1.25em;
-            font-weight: 700;
-            color: #6366f1;
+            color: #4a5568;
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
         }
 
         body.dark-mode .info-box h3 {
-            color: #818cf8;
+            color: #e2e8f0;
         }
 
         .info-box ul {
-            list-style: none;
-            padding: 0;
+            margin-left: 24px;
+            line-height: 2;
+            color: #4a5568;
         }
 
-        .info-box li {
-            padding: 12px 0;
-            color: #64748b;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            align-items: start;
-            gap: 12px;
+        body.dark-mode .info-box ul {
+            color: #cbd5e0;
         }
 
-        body.dark-mode .info-box li {
-            color: #94a3b8;
-            border-bottom-color: #334155;
+        .form-group {
+            margin-bottom: 28px;
         }
 
-        .info-box li:last-child {
-            border-bottom: none;
-        }
-
-        /* Form Card */
-        .form-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
-        body.dark-mode .form-card {
-            background: #1e293b;
-            border-color: #334155;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            margin-bottom: 32px;
-            display: none;
+        .form-group label {
+            display: block;
+            color: #2d3748;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        body.dark-mode .form-group label {
+            color: #e2e8f0;
+        }
+
+        .required {
+            color: #f56565;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+            color: #2d3748;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group textarea {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-color: #4a5568;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-mode .form-group input:focus,
+        body.dark-mode .form-group select:focus,
+        body.dark-mode .form-group textarea:focus {
+            border-color: #5a67d8;
+            box-shadow: 0 0 0 4px rgba(90, 103, 216, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .help-text {
+            font-size: 0.9em;
+            color: #a0aec0;
+            margin-top: 8px;
+            font-style: normal;
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.15em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .btn {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            display: none;
+            font-size: 1.05em;
+            box-shadow: 0 2px 12px rgba(40, 167, 69, 0.15);
+            font-weight: 500;
+        }
+
+        body.dark-mode .success-message {
+            background: linear-gradient(135deg, #1e4620 0%, #2d5a2e 100%);
+            border-color: #48bb78;
+            color: #9ae6b4;
         }
 
         .success-message.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            display: none;
+            font-size: 1.05em;
+            box-shadow: 0 2px 12px rgba(220, 53, 69, 0.15);
+            font-weight: 500;
+        }
+
+        body.dark-mode .error-message {
+            background: linear-gradient(135deg, #4a1a1f 0%, #5a2024 100%);
+            border-color: #e74c3c;
+            color: #ff6b6b;
+        }
+
+        .error-message.show {
             display: block;
             animation: slideIn 0.4s ease;
         }
@@ -233,170 +341,75 @@
             }
         }
 
-        /* Form Groups */
-        .form-group {
-            margin-bottom: 28px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-        }
-
-        body.dark-mode .form-group label {
-            color: #f1f5f9;
-        }
-
-        .required {
-            color: #ef4444;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1em;
-            font-family: inherit;
-            background: white;
-            color: #1e293b;
-            transition: all 0.2s ease;
-        }
-
-        body.dark-mode .form-group input,
-        body.dark-mode .form-group select,
-        body.dark-mode .form-group textarea {
-            background: #0f172a;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-            line-height: 1.6;
-        }
-
-        .help-text {
-            font-size: 0.85em;
-            color: #94a3b8;
-            margin-top: 6px;
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            padding: 16px 32px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.05em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 12px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 12px 20px;
+            body {
+                padding: 20px 16px;
             }
 
-            .nav-brand {
-                font-size: 1.1em;
+            .top-controls {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .container {
-                padding: 40px 20px 60px;
+            .request-section {
+                padding: 32px 24px;
             }
 
-            .page-header h1 {
-                font-size: 2.25em;
+            h1 {
+                font-size: 2em;
             }
 
-            .page-header p {
+            .subtitle {
                 font-size: 1em;
             }
 
-            .info-box,
-            .form-card {
-                padding: 24px;
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px;
+            }
+
+            .btn {
+                font-size: 1.05em;
+                padding: 16px 28px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">
-                <span class="logo">📚</span>
-                <span>Class 2025 Library</span>
-            </a>
+    <div class="container">
+        <div class="top-controls">
+            <a href="index.html" class="back-link">← Back to Course Library</a>
             <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
                 <span id="themeIcon">🌙</span>
             </button>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Header -->
-        <div class="page-header">
+        
+        <div class="request-section">
             <h1>📤 Request Course Upload</h1>
-            <p>Have course materials to share? Submit your request and help your classmates succeed!</p>
-        </div>
+            <p class="subtitle">Have course materials to share with your classmates? Submit your request here and the teacher will review it!</p>
 
-        <!-- Info Box -->
-        <div class="info-box">
-            <h3>📋 Before You Submit</h3>
-            <ul>
-                <li><span>✓</span> <span>Ensure the course doesn't already exist in the library</span></li>
-                <li><span>✓</span> <span>Provide a clear and descriptive title</span></li>
-                <li><span>✓</span> <span>Add detailed description of the content</span></li>
-                <li><span>✓</span> <span>Include a valid download link (Google Drive, Dropbox, OneDrive, etc.)</span></li>
-                <li><span>✓</span> <span>The teacher will review and respond via email</span></li>
-            </ul>
-        </div>
-
-        <!-- Form Card -->
-        <div class="form-card">
-            <!-- Success Message -->
-            <div class="success-message" id="successMessage">
-                ✅ <strong>Request submitted successfully!</strong> You'll receive an email notification when the teacher responds.
+            <div class="info-box">
+                <h3>📋 Before You Submit:</h3>
+                <ul>
+                    <li>✅ Make sure the course doesn't already exist in the library</li>
+                    <li>✅ Provide a clear and descriptive title</li>
+                    <li>✅ Add detailed description of the content</li>
+                    <li>✅ Include a direct download link (Google Drive, Dropbox, OneDrive, etc.)</li>
+                    <li>✅ The teacher will review and respond to your request</li>
+                </ul>
             </div>
 
-            <!-- Form -->
+            <div class="success-message" id="successMessage">
+                ✅ <strong>Request submitted successfully!</strong><br>
+                The teacher will review your request and you'll receive a notification via email.
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ <strong>Error submitting request.</strong><br>
+                <span id="errorText">Please try again.</span>
+            </div>
+
             <div class="form-group">
                 <label>Your Name <span class="required">*</span></label>
                 <input type="text" id="studentName" placeholder="Enter your full name" required>
@@ -405,7 +418,7 @@
             <div class="form-group">
                 <label>Email Address <span class="required">*</span></label>
                 <input type="email" id="studentEmail" placeholder="your.email@example.com" required>
-                <div class="help-text">📧 You'll receive notification when your request is reviewed</div>
+                <div class="help-text">📧 You'll receive an email notification when the teacher responds to your request</div>
             </div>
 
             <div class="form-group">
@@ -415,7 +428,7 @@
 
             <div class="form-group">
                 <label>Course Description <span class="required">*</span></label>
-                <textarea id="courseDescription" placeholder="Describe the content, topics covered, chapters, what students will learn..." required></textarea>
+                <textarea id="courseDescription" placeholder="Describe the content: topics covered, chapter numbers, what students will learn, etc." required></textarea>
             </div>
 
             <div class="form-group">
@@ -438,22 +451,29 @@
             <div class="form-group">
                 <label>Download Link <span class="required">*</span></label>
                 <input type="url" id="downloadLink" placeholder="https://drive.google.com/... or any file hosting link" required>
-                <div class="help-text">🔗 Direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
+                <div class="help-text">🔗 Paste a direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
             </div>
 
             <div class="form-group">
-                <label>Additional Notes <span style="color: #94a3b8; font-weight: 400;">(Optional)</span></label>
+                <label>Additional Notes (Optional)</label>
                 <textarea id="additionalNotes" placeholder="Any additional information for the teacher..." rows="4"></textarea>
             </div>
 
-            <button class="submit-btn" onclick="submitRequest()" id="submitBtn">
-                Submit Request
+            <button class="btn" onclick="submitRequest()" id="submitBtn">
+                <span id="btnText">Submit Request</span>
             </button>
         </div>
     </div>
 
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        // Dark mode
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://zxdvxzdaowdvkzjjsbqb.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4ZHZ4emRhb3dkdmt6ampzYnFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0NjI0NDYsImV4cCI6MjA3NjAzODQ0Nn0.w6ob-YZlKPsW44P5mepGWPrv6oji03TwKt7eK6Ezx68';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -461,13 +481,12 @@
             document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
         }
 
-        // Load dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
             document.getElementById('themeIcon').textContent = '☀️';
         }
 
-        function submitRequest() {
+        async function submitRequest() {
             const studentName = document.getElementById('studentName').value.trim();
             const email = document.getElementById('studentEmail').value.trim();
             const courseTitle = document.getElementById('courseTitle').value.trim();
@@ -476,70 +495,94 @@
             const downloadLink = document.getElementById('downloadLink').value.trim();
             const notes = document.getElementById('additionalNotes').value.trim();
 
+            // Hide messages
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('errorMessage').classList.remove('show');
+
             // Validation
             if (!studentName || !email || !courseTitle || !description || !category || !downloadLink) {
-                alert('⚠️ Please fill in all required fields!');
+                showError('Please fill in all required fields!');
                 return;
             }
 
-            // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert('⚠️ Please enter a valid email address!');
+                showError('Please enter a valid email address!');
                 return;
             }
 
-            // URL validation
             try {
                 new URL(downloadLink);
             } catch (e) {
-                alert('⚠️ Please enter a valid URL for the download link!');
+                showError('Please enter a valid URL for the download link!');
                 return;
             }
 
-            // Create request object
-            const request = {
-                id: Date.now(),
-                studentName,
-                email,
-                courseTitle,
-                description,
-                category,
-                downloadLink,
-                notes,
-                status: 'pending',
-                date: new Date().toISOString(),
-                timestamp: Date.now()
-            };
+            // Disable button and show loading
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            btn.disabled = true;
+            btnText.innerHTML = 'Submitting<span class="spinner"></span>';
 
-            // Save to localStorage
-            const requests = JSON.parse(localStorage.getItem('courseRequests') || '[]');
-            requests.unshift(request);
-            localStorage.setItem('courseRequests', JSON.stringify(requests));
+            try {
+                // Insert into Supabase
+                const { data, error } = await supabase
+                    .from('course_requests')
+                    .insert([
+                        {
+                            student_name: studentName,
+                            email: email,
+                            course_title: courseTitle,
+                            description: description,
+                            category: category,
+                            download_link: downloadLink,
+                            notes: notes || null,
+                            status: 'pending'
+                        }
+                    ]);
 
-            // Show success message
-            const successMsg = document.getElementById('successMessage');
-            successMsg.classList.add('show');
-            
-            // Clear form
-            document.getElementById('studentName').value = '';
-            document.getElementById('studentEmail').value = '';
-            document.getElementById('courseTitle').value = '';
-            document.getElementById('courseDescription').value = '';
-            document.getElementById('courseCategory').value = '';
-            document.getElementById('downloadLink').value = '';
-            document.getElementById('additionalNotes').value = '';
+                if (error) throw error;
 
-            // Scroll to success message
-            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                
+                // Clear form
+                document.getElementById('studentName').value = '';
+                document.getElementById('studentEmail').value = '';
+                document.getElementById('courseTitle').value = '';
+                document.getElementById('courseDescription').value = '';
+                document.getElementById('courseCategory').value = '';
+                document.getElementById('downloadLink').value = '';
+                document.getElementById('additionalNotes').value = '';
 
-            // Hide success message after 8 seconds
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-            }, 8000);
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Hide success message after 8 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                }, 8000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to submit request. Please try again. ' + error.message);
+            } finally {
+                // Re-enable button
+                btn.disabled = false;
+                btnText.textContent = 'Submit Request';
+            }
         }
 
-        // Allow Enter key to submit in input fields (except textarea)
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').classList.add('show');
+            document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                document.getElementById('errorMessage').classList.remove('show');
+            }, 6000);
+        }
+
         document.querySelectorAll('input, select').forEach(element => {
             element.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -550,7 +593,6 @@
         });
     </script>
 
-    <!-- StatCounter Code -->
     <script type="text/javascript">
     var sc_project=13174642; 
     var sc_invisible=1; 
@@ -562,6 +604,5 @@
     href="https://statcounter.com/" target="_blank"><img class="statcounter"
     src="https://c.statcounter.com/13174642/0/fab45bbd/1/" alt="Web Analytics"
     referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-    <!-- End of Statcounter Code -->
 </body>
 </html>
