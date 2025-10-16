@@ -983,10 +983,16 @@
                         ` : ''}
 
                         <div style="margin-bottom: 20px;">
-                            <strong style="color: #6366f1;">Download Link:</strong><br>
-                            <a href="${req.download_link}" target="_blank" class="request-link">
-                                🔗 ${req.download_link}
-                            </a>
+                            <strong style="color: #6366f1;">Course Material:</strong><br>
+                            ${req.upload_type === 'upload' && req.file_url ? `
+                                <a href="${req.file_url}" target="_blank" class="request-link" download>
+                                    📥 Download Uploaded File
+                                </a>
+                            ` : `
+                                <a href="${req.download_link}" target="_blank" class="request-link">
+                                    🔗 ${req.download_link}
+                                </a>
+                            `}
                         </div>
 
                         <div class="actions">
