@@ -908,7 +908,7 @@
                     progressText.textContent = 'Uploading... 30%';
 
                     const { data: uploadData, error: uploadError } = await supabase.storage
-                        .from('courses')
+                        .from('course-files')
                         .upload(filePath, selectedFile, {
                             cacheControl: '3600',
                             upsert: false
