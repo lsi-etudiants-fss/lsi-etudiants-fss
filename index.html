@@ -767,44 +767,16 @@
         </section>
     </div>
 
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        const courses = [
-            {
-                title: "logique formelle",
-                description: "Introduction des logiques",
-                category: "logique",
-                driveLink: "https://drive.google.com/file/d/1sayHZSePFr26_1qHpcEzJ_rV74KdQmY5/view?usp=sharing",
-                uploadDate: "2025-10-14"
-            },
-            {
-                title: "technologie multimédia TP 1",
-                description: "traveux pratique n°1",
-                category: "multimedia",
-                driveLink: "https://drive.google.com/file/d/13e5v19g0zWDJG_DQdMVzvSWfQZjWB3HZ/view?usp=drive_link",
-                uploadDate: "2025-10-14"
-            },
-            {
-                title: "Cour système logique ",
-                description: "cour système logique par mmde Tounsi Lamia",
-                category: "systeme_logique",
-                driveLink: "https://drive.google.com/file/d/1WMjhSOHdVdDqujI-kdztqcJWfVRrDtwd/view?usp=drive_link",
-                uploadDate: "2025-10-14"
-            },
-            {
-                title: "Algorithme et structure des données Ch 1-2-3",
-                description: "chapitre N° 1 - 2 -3 ",
-                category: "algorithme",
-                driveLink: "https://drive.google.com/file/d/1rWBZLtjEarIkpzDcZYGyzIARuqV66cAY/view?usp=drive_link",
-                uploadDate: "2025-10-14"
-            },
-            {
-                title: "Algèbre de boole ",
-                description: "cours sys log et ar des ordinateurs ",
-                category: "systeme_logique",
-                driveLink: "https://drive.google.com/file/d/1VDw8vYM-7jlA74HyDFG8PW1SMZPKfShY/view?usp=drive_link",
-                uploadDate: "2025-10-14"
-            },
-        ];
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://zxdvxzdaowdvkzjjsbqb.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4ZHZ4emRhb3dkdmt6ampzYnFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0NjI0NDYsImV4cCI6MjA3NjAzODQ0Nn0.w6ob-YZlKPsW44P5mepGWPrv6oji03TwKt7eK6Ezx68';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let courses = [];
 
         const translations = {
             en: {
@@ -935,16 +907,11 @@
         }
 
         function isNewCourse(uploadDate) {
-            const uploaded = new Date(uploadDate + 'T00:00:00');
+            const uploaded = new Date(uploadDate);
             const now = new Date();
-            now.setHours(0, 0, 0, 0);
-            uploaded.setHours(0, 0, 0, 0);
-            
-            const diffTime = now - uploaded;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
-            console.log('Upload date:', uploadDate, 'Days ago:', diffDays);
-            return diffDays >= 0 && diffDays <= 3;
+            const diffTime = Math.abs(now - uploaded);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays <= 3;
         }
 
         function countMonthCourses() {
