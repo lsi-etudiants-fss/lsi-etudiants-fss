@@ -449,9 +449,48 @@
             </div>
 
             <div class="form-group">
-                <label>Download Link <span class="required">*</span></label>
-                <input type="url" id="downloadLink" placeholder="https://drive.google.com/... or any file hosting link" required>
-                <div class="help-text">🔗 Paste a direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
+                <label>Course Material <span class="required">*</span></label>
+                
+                <div class="upload-type-selector">
+                    <button type="button" class="upload-type-btn active" data-type="link" onclick="selectUploadType('link')">
+                        🔗 Link
+                    </button>
+                    <button type="button" class="upload-type-btn" data-type="upload" onclick="selectUploadType('upload')">
+                        📁 Upload File
+                    </button>
+                </div>
+
+                <div id="linkInput" class="upload-option">
+                    <input type="url" id="downloadLink" placeholder="https://drive.google.com/... or any file hosting link">
+                    <div class="help-text">🔗 Paste a direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
+                </div>
+
+                <div id="fileInput" class="upload-option" style="display: none;">
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" onchange="handleFileSelect(event)">
+                        <label for="fileUpload" class="file-upload-label" id="fileLabel">
+                            <span class="upload-icon">📤</span>
+                            <span class="upload-text">Click to select file or drag & drop</span>
+                            <span class="upload-subtext">Supported: PDF, DOC, DOCX, PPT, PPTX, ZIP (Max 50MB)</span>
+                        </label>
+                    </div>
+                    <div class="file-preview" id="filePreview" style="display: none;">
+                        <div class="file-info">
+                            <span class="file-icon">📄</span>
+                            <div class="file-details">
+                                <div class="file-name" id="fileName"></div>
+                                <div class="file-size" id="fileSize"></div>
+                            </div>
+                            <button type="button" class="remove-file-btn" onclick="removeFile()">✕</button>
+                        </div>
+                        <div class="upload-progress" id="uploadProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">Uploading... 0%</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
