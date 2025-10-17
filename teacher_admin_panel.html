@@ -1078,22 +1078,34 @@
 
                 if (fetchError) throw fetchError;
 
-                // Update request status in Supabase
-                const { error: updateError } = await supabase
+                if (currentAction === 'approve') {
+                    // Add to permanent courses table
+                    const { error: insertError } = await supabase
+                        .from('courses')
+                        .insert([{
+                            title: request.course_title,
+                            description: request.description,
+                            category: request.category,
+                            file_url: request.file_url || request.download_link,
+                            upload_type: request.upload_type,
+                            uploaded_by: request.student_name
+                        }]);
+
+                    if (insertError) throw insertError;
+                }
+
+                // Delete the request (approved or declined, we don't keep it)
+                const { error: deleteError } = await supabase
                     .from('course_requests')
-                    .update({
-                        status: currentAction === 'approve' ? 'approved' : 'declined',
-                        response_message: message,
-                        response_date: new Date().toISOString()
-                    })
+                    .delete()
                     .eq('id', currentRequest);
 
-                if (updateError) throw updateError;
+                if (deleteError) throw deleteError;
 
                 // Send email notification
                 try {
                     await sendEmailNotification(request, currentAction, message);
-                    alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!\n\n📧 Email notification sent to ${request.email}`);
+                    alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!\n\n${currentAction === 'approve' ? '📚 Course added to library!\n' : ''}📧 Email notification sent to ${request.email}`);
                 } catch (emailError) {
                     console.error('Email error:', emailError);
                     alert(`⚠️ Request was ${currentAction === 'approve' ? 'approved' : 'declined'}, but email failed to send.\n\nPlease contact the student manually at: ${request.email}`);
