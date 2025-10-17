@@ -550,6 +550,19 @@
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
         }
 
+        .btn-delete {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            padding: 12px 24px;
+            max-width: 180px;
+        }
+
+        .btn-delete:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
         .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -590,6 +603,64 @@
 
         body.dark-mode .empty-text {
             color: #94a3b8;
+        }
+
+        .library-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #f1f5f9;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        body.dark-mode .library-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        .library-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .library-info {
+            flex: 1;
+        }
+
+        .library-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        body.dark-mode .library-title {
+            color: #e2e8f0;
+        }
+
+        .library-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #64748b;
+            margin-top: 12px;
+        }
+
+        body.dark-mode .library-meta {
+            color: #94a3b8;
+        }
+
+        .library-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
 
         /* Modal */
@@ -658,6 +729,19 @@
             background: #0f172a;
             color: #e2e8f0;
             border-color: #334155;
+        }
+
+        body.dark-mode .modal-content input,
+        body.dark-mode .modal-content select {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-color: #334155;
+        }
+
+        body.dark-mode .modal-content input:focus,
+        body.dark-mode .modal-content select:focus,
+        body.dark-mode .modal-content textarea:focus {
+            border-color: #6366f1;
         }
 
         .modal-actions {
@@ -758,15 +842,15 @@
                 <div class="stats-grid">
                     <div class="stat-box">
                         <div class="number" id="totalRequests">0</div>
-                        <div class="label">Total Requests</div>
+                        <div class="label">Pending Requests</div>
                     </div>
                     <div class="stat-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                        <div class="number" id="approvedCount">0</div>
-                        <div class="label">Approved</div>
+                        <div class="number" id="totalCoursesCount">0</div>
+                        <div class="label">In Library</div>
                     </div>
-                    <div class="stat-box" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
-                        <div class="number" id="declinedCount">0</div>
-                        <div class="label">Declined</div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);">
+                        <div class="number" id="recentUploads">0</div>
+                        <div class="label">This Month</div>
                     </div>
                 </div>
 
@@ -776,18 +860,104 @@
                 </div>
                 <div id="requestsList"></div>
             </div>
+
+            <!-- Library Management Section -->
+            <div class="admin-section" style="margin-top: 40px;">
+                <div class="section-header">
+                    <h2>📚 Manage Library Courses</h2>
+                    <button class="refresh-btn" onclick="loadLibraryCourses()">🔄 Refresh</button>
+                </div>
+                <div id="libraryList"></div>
+            </div>
         </div>
     </div>
 
     <!-- Decision Modal -->
     <div class="modal" id="decisionModal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 700px;">
             <h2 id="modalTitle">Approve Request</h2>
-            <p id="modalMessage">Send a message to the student:</p>
-            <textarea id="responseMessage" placeholder="Your message to the student (optional)..."></textarea>
+            <p id="modalMessage">Review and edit course details before approving:</p>
+            
+            <!-- Editable Course Preview -->
+            <div id="coursePreview" style="display: none;">
+                <div style="background: #f8fafc; padding: 24px; border-radius: 12px; margin: 20px 0; border: 2px solid #e2e8f0;">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                            Course Title <span style="color: #ef4444;">*</span>
+                        </label>
+                        <input type="text" id="editTitle" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                            Description <span style="color: #ef4444;">*</span>
+                        </label>
+                        <textarea id="editDescription" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; min-height: 100px; font-family: inherit; resize: vertical;"></textarea>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                            Category <span style="color: #ef4444;">*</span>
+                        </label>
+                        <select id="editCategory" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                            <option value="programmation">💻 Atelier Programmation</option>
+                            <option value="systeme_logique">🔧 Système Logique et Architecture</option>
+                            <option value="algorithme">📊 Algorithme et Structure de Données</option>
+                            <option value="logique">🧠 Logique Formelle</option>
+                            <option value="multimedia">🎨 Technologies Multimédia</option>
+                            <option value="communication">📡 Technique de Communication</option>
+                            <option value="analyse">📐 Analyse</option>
+                            <option value="algebre">🔢 Algèbre</option>
+                            <option value="systeme_exploitation">⚙️ Système d'Exploitation</option>
+                            <option value="anglais">🌍 Anglais</option>
+                        </select>
+                    </div>
+
+                    <div style="background: #eff6ff; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                        <div style="font-size: 0.9em; color: #1e40af; margin-bottom: 8px;">
+                            <strong>📧 Submitted by:</strong> <span id="previewStudent"></span>
+                        </div>
+                        <div style="font-size: 0.9em; color: #1e40af; margin-bottom: 8px;">
+                            <strong>📅 Date:</strong> <span id="previewDate"></span>
+                        </div>
+                        <div style="font-size: 0.9em; color: #1e40af;">
+                            <strong>📎 Material:</strong> <span id="previewMaterial"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Message to Student (Optional)
+                    </label>
+                    <textarea id="responseMessage" placeholder="e.g., Your course has been approved! Thank you for your contribution." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; min-height: 80px; font-family: inherit;"></textarea>
+                </div>
+            </div>
+
+            <!-- For Decline (simple message) -->
+            <div id="declineMessage" style="display: none;">
+                <textarea id="declineResponseMessage" placeholder="Your message to the student explaining why the request was declined..." style="width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-family: inherit; font-size: 1em; margin: 20px 0; min-height: 120px;"></textarea>
+            </div>
+
             <div class="modal-actions">
                 <button class="btn btn-approve" id="confirmBtn" onclick="confirmDecision()">Confirm</button>
                 <button class="btn btn-decline" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h2>⚠️ Delete Course</h2>
+            <p>Are you sure you want to delete this course from the library?</p>
+            <div style="background: #fef3c7; padding: 16px; border-radius: 8px; margin: 16px 0; border-left: 4px solid #f59e0b;">
+                <strong style="color: #92400e;" id="deleteCourseTitle"></strong>
+            </div>
+            <p style="color: #ef4444; font-weight: 600;">This action cannot be undone!</p>
+            <div class="modal-actions">
+                <button class="btn btn-delete" id="deleteConfirmBtn" onclick="confirmDelete()">Yes, Delete</button>
+                <button class="btn btn-decline" onclick="closeDeleteModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -816,6 +986,7 @@
 
         let currentRequest = null;
         let currentAction = null;
+        let courseToDelete = null;
 
         const categoryNames = {
             programmation: "Atelier Programmation",
@@ -880,6 +1051,7 @@
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
             loadRequests();
+            loadLibraryCourses();
         }
 
         function logout() {
@@ -903,14 +1075,6 @@
         // Load requests from Supabase
         async function loadRequests() {
             try {
-                // Get all requests
-                const { data: allRequests, error: allError } = await supabase
-                    .from('course_requests')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (allError) throw allError;
-
                 // Get pending requests
                 const { data: pendingRequests, error: pendingError } = await supabase
                     .from('course_requests')
@@ -920,11 +1084,138 @@
 
                 if (pendingError) throw pendingError;
 
+                // Get total courses count
+                const { count, error: countError } = await supabase
+                    .from('courses')
+                    .select('*', { count: 'exact', head: true });
+
+                if (countError) throw countError;
+
+                // Get this month's courses
+                const now = new Date();
+                const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+                const { count: monthCount, error: monthError } = await supabase
+                    .from('courses')
+                    .select('*', { count: 'exact', head: true })
+                    .gte('created_at', firstDay.toISOString());
+
+                if (monthError) throw monthError;
+
                 renderRequests(pendingRequests || []);
-                updateStats(allRequests || []);
+                
+                // Update stats
+                document.getElementById('totalRequests').textContent = (pendingRequests || []).length;
+                document.getElementById('totalCoursesCount').textContent = count || 0;
+                document.getElementById('recentUploads').textContent = monthCount || 0;
+                document.getElementById('pendingCount').textContent = (pendingRequests || []).length;
+
             } catch (error) {
                 console.error('Error loading requests:', error);
                 alert('Error loading requests: ' + error.message);
+            }
+        }
+
+        // Load library courses
+        async function loadLibraryCourses() {
+            try {
+                const { data: courses, error } = await supabase
+                    .from('courses')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                renderLibraryCourses(courses || []);
+            } catch (error) {
+                console.error('Error loading library:', error);
+                alert('Error loading library courses: ' + error.message);
+            }
+        }
+
+        function renderLibraryCourses(courses) {
+            const container = document.getElementById('libraryList');
+            
+            if (courses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📚</div>
+                        <p class="empty-text">No courses in library yet!</p>
+                        <p style="margin-top: 12px; color: #94a3b8;">Approve student requests to add courses to the library.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = courses.map(course => {
+                const date = new Date(course.created_at).toLocaleDateString();
+                const uploadType = course.upload_type === 'upload' ? '📁 Uploaded File' : '🔗 External Link';
+                
+                return `
+                    <div class="library-card">
+                        <div class="library-info">
+                            <div class="library-title">${course.title}</div>
+                            <span class="category-badge">${categoryNames[course.category]}</span>
+                            <div class="library-meta">
+                                <span>👤 ${course.uploaded_by || 'Unknown'}</span>
+                                <span>📅 ${date}</span>
+                                <span>${uploadType}</span>
+                            </div>
+                            <div style="margin-top: 12px; color: #64748b; font-size: 0.95em;">
+                                ${course.description.substring(0, 100)}${course.description.length > 100 ? '...' : ''}
+                            </div>
+                        </div>
+                        <div class="library-actions">
+                            <a href="${course.file_url}" target="_blank" class="btn btn-approve" style="text-decoration: none; max-width: 140px; padding: 12px 20px;">
+                                👁️ View
+                            </a>
+                            <button class="btn btn-delete" onclick="openDeleteModal(${course.id}, '${course.title.replace(/'/g, "\\'")}')">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openDeleteModal(courseId, courseTitle) {
+            courseToDelete = courseId;
+            document.getElementById('deleteCourseTitle').textContent = courseTitle;
+            document.getElementById('deleteModal').classList.add('show');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('show');
+            courseToDelete = null;
+        }
+
+        async function confirmDelete() {
+            if (!courseToDelete) return;
+
+            const btn = document.getElementById('deleteConfirmBtn');
+            btn.disabled = true;
+            btn.innerHTML = 'Deleting<span class="spinner"></span>';
+
+            try {
+                const { error } = await supabase
+                    .from('courses')
+                    .delete()
+                    .eq('id', courseToDelete);
+
+                if (error) throw error;
+
+                alert('✅ Course deleted successfully!');
+                
+                // Reload both sections
+                await loadRequests();
+                await loadLibraryCourses();
+                closeDeleteModal();
+
+            } catch (error) {
+                console.error('Delete error:', error);
+                alert('Error deleting course: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Yes, Delete';
             }
         }
 
@@ -1010,8 +1301,8 @@
 
         function updateStats(requests) {
             document.getElementById('totalRequests').textContent = requests.length;
-            document.getElementById('approvedCount').textContent = requests.filter(r => r.status === 'approved').length;
-            document.getElementById('declinedCount').textContent = requests.filter(r => r.status === 'declined').length;
+            document.getElementById('approvedCount').textContent = 0; // Not tracking anymore
+            document.getElementById('declinedCount').textContent = 0; // Not tracking anymore
             
             const pending = requests.filter(r => r.status === 'pending').length;
             document.getElementById('pendingCount').textContent = pending;
@@ -1024,23 +1315,64 @@
             const modal = document.getElementById('decisionModal');
             const title = document.getElementById('modalTitle');
             const message = document.getElementById('modalMessage');
+            const coursePreview = document.getElementById('coursePreview');
+            const declineMessage = document.getElementById('declineMessage');
+            const confirmBtn = document.getElementById('confirmBtn');
             
             if (action === 'approve') {
-                title.textContent = '✅ Approve Request';
-                message.textContent = 'Send a confirmation message to the student:';
-                document.getElementById('responseMessage').placeholder = 'e.g., Your course has been approved and added to the library. Thank you for your contribution!';
+                title.textContent = '✅ Approve & Edit Course';
+                message.textContent = 'Review and edit course details before approving:';
+                coursePreview.style.display = 'block';
+                declineMessage.style.display = 'none';
+                confirmBtn.className = 'btn btn-approve';
+                confirmBtn.textContent = 'Approve & Add to Library';
+                
+                // Load current request data
+                loadRequestForEdit(requestId);
             } else {
                 title.textContent = '❌ Decline Request';
-                message.textContent = 'Send a message explaining why the request was declined:';
-                document.getElementById('responseMessage').placeholder = 'e.g., This course already exists in the library, or the link is invalid...';
+                message.textContent = 'Send a message explaining why:';
+                coursePreview.style.display = 'none';
+                declineMessage.style.display = 'block';
+                confirmBtn.className = 'btn btn-decline';
+                confirmBtn.textContent = 'Decline Request';
             }
             
             modal.classList.add('show');
         }
 
+        async function loadRequestForEdit(requestId) {
+            try {
+                const { data: request, error } = await supabase
+                    .from('course_requests')
+                    .select('*')
+                    .eq('id', requestId)
+                    .single();
+
+                if (error) throw error;
+
+                // Populate edit fields
+                document.getElementById('editTitle').value = request.course_title;
+                document.getElementById('editDescription').value = request.description;
+                document.getElementById('editCategory').value = request.category;
+                
+                // Show read-only info
+                document.getElementById('previewStudent').textContent = `${request.student_name} (${request.email})`;
+                document.getElementById('previewDate').textContent = new Date(request.created_at).toLocaleString();
+                
+                const materialType = request.upload_type === 'upload' ? '📁 Uploaded File' : '🔗 External Link';
+                document.getElementById('previewMaterial').textContent = materialType;
+
+            } catch (error) {
+                console.error('Error loading request:', error);
+                alert('Error loading request details');
+            }
+        }
+
         function closeModal() {
             document.getElementById('decisionModal').classList.remove('show');
             document.getElementById('responseMessage').value = '';
+            document.getElementById('declineResponseMessage').value = '';
         }
 
         async function sendEmailNotification(request, action, message) {
@@ -1062,7 +1394,6 @@
         }
 
         async function confirmDecision() {
-            const message = document.getElementById('responseMessage').value.trim();
             const confirmBtn = document.getElementById('confirmBtn');
             
             confirmBtn.disabled = true;
@@ -1078,20 +1409,38 @@
 
                 if (fetchError) throw fetchError;
 
+                let message = '';
+
                 if (currentAction === 'approve') {
-                    // Add to permanent courses table
+                    // Get edited values
+                    const editedTitle = document.getElementById('editTitle').value.trim();
+                    const editedDescription = document.getElementById('editDescription').value.trim();
+                    const editedCategory = document.getElementById('editCategory').value;
+                    message = document.getElementById('responseMessage').value.trim();
+
+                    // Validation
+                    if (!editedTitle || !editedDescription || !editedCategory) {
+                        alert('⚠️ Please fill in all required fields!');
+                        confirmBtn.disabled = false;
+                        confirmBtn.textContent = 'Approve & Add to Library';
+                        return;
+                    }
+
+                    // Add to permanent courses table with edited values
                     const { error: insertError } = await supabase
                         .from('courses')
                         .insert([{
-                            title: request.course_title,
-                            description: request.description,
-                            category: request.category,
+                            title: editedTitle,
+                            description: editedDescription,
+                            category: editedCategory,
                             file_url: request.file_url || request.download_link,
                             upload_type: request.upload_type,
                             uploaded_by: request.student_name
                         }]);
 
                     if (insertError) throw insertError;
+                } else {
+                    message = document.getElementById('declineResponseMessage').value.trim();
                 }
 
                 // Delete the request (approved or declined, we don't keep it)
@@ -1113,6 +1462,7 @@
 
                 // Reload requests
                 await loadRequests();
+                await loadLibraryCourses();
                 closeModal();
 
             } catch (error) {
@@ -1120,7 +1470,7 @@
                 alert('Error processing request: ' + error.message);
             } finally {
                 confirmBtn.disabled = false;
-                confirmBtn.innerHTML = 'Confirm';
+                confirmBtn.innerHTML = currentAction === 'approve' ? 'Approve & Add to Library' : 'Decline Request';
             }
         }
 
