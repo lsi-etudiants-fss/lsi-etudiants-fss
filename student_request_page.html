@@ -183,7 +183,7 @@
             font-size: 1.1em;
         }
 
-        .form-group input:not([type="file"]),
+        .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
@@ -197,7 +197,7 @@
             color: #2d3748;
         }
 
-        body.dark-mode .form-group input:not([type="file"]),
+        body.dark-mode .form-group input,
         body.dark-mode .form-group select,
         body.dark-mode .form-group textarea {
             background: #1a202c;
@@ -226,6 +226,13 @@
             line-height: 1.6;
         }
 
+        .help-text {
+            font-size: 0.9em;
+            color: #a0aec0;
+            margin-top: 8px;
+            font-style: normal;
+        }
+
         .upload-type-selector {
             display: flex;
             gap: 12px;
@@ -236,19 +243,19 @@
             flex: 1;
             padding: 14px 24px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 10px;
             background: white;
             color: #64748b;
             font-weight: 600;
-            font-size: 1em;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            font-size: 1em;
         }
 
         body.dark-mode .upload-type-btn {
-            background: #1a202c;
+            background: #0f172a;
+            border-color: #334155;
             color: #94a3b8;
-            border-color: #4a5568;
         }
 
         .upload-type-btn:hover {
@@ -257,26 +264,17 @@
         }
 
         body.dark-mode .upload-type-btn:hover {
-            border-color: #5a67d8;
-            background: #0f172a;
+            background: #1e293b;
         }
 
         .upload-type-btn.active {
+            border-color: #667eea;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-color: transparent;
-        }
-
-        body.dark-mode .upload-type-btn.active {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
         }
 
         .upload-option {
-            display: none;
-        }
-
-        .upload-option.active {
-            display: block;
+            transition: all 0.3s;
         }
 
         .file-upload-wrapper {
@@ -289,7 +287,6 @@
             width: 100%;
             height: 100%;
             cursor: pointer;
-            z-index: 2;
         }
 
         .file-upload-label {
@@ -298,18 +295,16 @@
             align-items: center;
             justify-content: center;
             padding: 48px 32px;
-            border: 3px dashed #e2e8f0;
-            border-radius: 16px;
+            border: 3px dashed #cbd5e1;
+            border-radius: 12px;
             background: #f8fafc;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
+            transition: all 0.3s;
         }
 
         body.dark-mode .file-upload-label {
             background: #0f172a;
-            border-color: #4a5568;
+            border-color: #334155;
         }
 
         .file-upload-label:hover {
@@ -318,30 +313,18 @@
         }
 
         body.dark-mode .file-upload-label:hover {
-            border-color: #5a67d8;
-            background: #1e293b;
-        }
-
-        .file-upload-label.dragover {
-            border-color: #667eea;
-            background: #ebf4ff;
-            transform: scale(1.02);
-        }
-
-        body.dark-mode .file-upload-label.dragover {
-            border-color: #5a67d8;
             background: #1e293b;
         }
 
         .upload-icon {
-            font-size: 4em;
+            font-size: 3em;
             margin-bottom: 16px;
         }
 
         .upload-text {
-            font-size: 1.15em;
+            font-size: 1.1em;
             font-weight: 600;
-            color: #2d3748;
+            color: #334155;
             margin-bottom: 8px;
         }
 
@@ -355,26 +338,26 @@
         }
 
         .file-preview {
-            margin-top: 20px;
-            padding: 20px;
-            border: 2px solid #10b981;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        }
-
-        body.dark-mode .file-preview {
-            background: linear-gradient(135deg, #1e4620 0%, #2d5a2e 100%);
-            border-color: #48bb78;
+            margin-top: 16px;
         }
 
         .file-info {
             display: flex;
             align-items: center;
             gap: 16px;
+            padding: 16px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+        }
+
+        body.dark-mode .file-info {
+            background: #1e293b;
+            border-color: #334155;
         }
 
         .file-icon {
-            font-size: 2.5em;
+            font-size: 2em;
         }
 
         .file-details {
@@ -382,40 +365,37 @@
         }
 
         .file-name {
-            font-weight: 700;
-            color: #155724;
+            font-weight: 600;
+            color: #1e293b;
             margin-bottom: 4px;
-            word-break: break-word;
         }
 
         body.dark-mode .file-name {
-            color: #9ae6b4;
+            color: #e2e8f0;
         }
 
         .file-size {
             font-size: 0.9em;
-            color: #155724;
-            opacity: 0.8;
+            color: #64748b;
         }
 
         body.dark-mode .file-size {
-            color: #9ae6b4;
+            color: #94a3b8;
         }
 
         .remove-file-btn {
-            padding: 8px 16px;
-            background: #dc3545;
+            padding: 8px 12px;
+            background: #ef4444;
             color: white;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
         .remove-file-btn:hover {
-            background: #c82333;
-            transform: scale(1.05);
+            background: #dc2626;
         }
 
         .upload-progress {
@@ -424,36 +404,33 @@
 
         .progress-bar {
             width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
             overflow: hidden;
             margin-bottom: 8px;
+        }
+
+        body.dark-mode .progress-bar {
+            background: #334155;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.3s;
         }
 
         .progress-text {
             text-align: center;
             font-size: 0.9em;
+            color: #64748b;
             font-weight: 600;
-            color: #155724;
         }
 
         body.dark-mode .progress-text {
-            color: #9ae6b4;
-        }
-
-        .help-text {
-            font-size: 0.9em;
-            color: #a0aec0;
-            margin-top: 8px;
-            font-style: normal;
+            color: #94a3b8;
         }
 
         .btn {
@@ -596,10 +573,6 @@
                 font-size: 1.05em;
                 padding: 16px 28px;
             }
-
-            .upload-type-selector {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -622,7 +595,7 @@
                     <li>✅ Make sure the course doesn't already exist in the library</li>
                     <li>✅ Provide a clear and descriptive title</li>
                     <li>✅ Add detailed description of the content</li>
-                    <li>✅ Upload your file or provide a download link</li>
+                    <li>✅ Include a direct download link (Google Drive, Dropbox, OneDrive, etc.)</li>
                     <li>✅ The teacher will review and respond to your request</li>
                 </ul>
             </div>
@@ -668,7 +641,7 @@
                     <option value="logique">🧠 Logique Formelle</option>
                     <option value="multimedia">🎨 Technologies Multimédia</option>
                     <option value="communication">📡 Technique de Communication</option>
-                    <option value="analyse">📈 Analyse</option>
+                    <option value="analyse">📐 Analyse</option>
                     <option value="algebre">🔢 Algèbre</option>
                     <option value="systeme_exploitation">⚙️ Système d'Exploitation</option>
                     <option value="anglais">🌍 Anglais</option>
@@ -679,26 +652,26 @@
                 <label>Course Material <span class="required">*</span></label>
                 
                 <div class="upload-type-selector">
-                    <button type="button" class="upload-type-btn active" onclick="selectUploadType('link')">
-                        🔗 Provide Link
+                    <button type="button" class="upload-type-btn active" data-type="link" onclick="selectUploadType('link')">
+                        🔗 Link
                     </button>
-                    <button type="button" class="upload-type-btn" onclick="selectUploadType('upload')">
+                    <button type="button" class="upload-type-btn" data-type="upload" onclick="selectUploadType('upload')">
                         📁 Upload File
                     </button>
                 </div>
 
-                <div id="linkInput" class="upload-option active">
+                <div id="linkInput" class="upload-option">
                     <input type="url" id="downloadLink" placeholder="https://drive.google.com/... or any file hosting link">
                     <div class="help-text">🔗 Paste a direct link to the file (Google Drive, Dropbox, OneDrive, Mega, etc.)</div>
                 </div>
 
-                <div id="fileInputSection" class="upload-option">
+                <div id="fileInput" class="upload-option" style="display: none;">
                     <div class="file-upload-wrapper">
-                        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip">
+                        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" onchange="handleFileSelect(event)">
                         <label for="fileUpload" class="file-upload-label" id="fileLabel">
                             <span class="upload-icon">📤</span>
                             <span class="upload-text">Click to select file or drag & drop</span>
-                            <span class="upload-subtext">PDF, DOC, DOCX, PPT, PPTX, ZIP (Max 50MB)</span>
+                            <span class="upload-subtext">Supported: PDF, DOC, DOCX, PPT, PPTX, ZIP (Max 50MB)</span>
                         </label>
                     </div>
                     <div class="file-preview" id="filePreview" style="display: none;">
@@ -731,15 +704,17 @@
         </div>
     </div>
 
+    <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // Initialize Supabase
         const SUPABASE_URL = 'https://zxdvxzdaowdvkzjjsbqb.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4ZHZ4emRhb3dkdmt6ampzYnFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0NjI0NDYsImV4cCI6MjA3NjAzODQ0Nn0.w6ob-YZlKPsW44P5mepGWPrv6oji03TwKt7eK6Ezx68';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let selectedFile = null;
-        let uploadType = 'link';
+        let currentUploadType = 'link';
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
@@ -754,90 +729,118 @@
         }
 
         function selectUploadType(type) {
-            uploadType = type;
+            currentUploadType = type;
             
+            // Update buttons
             document.querySelectorAll('.upload-type-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
             
-            document.querySelectorAll('.upload-option').forEach(opt => {
-                opt.classList.remove('active');
-            });
-            
+            // Show/hide inputs
             if (type === 'link') {
-                document.querySelector('[data-type="link"]').classList.add('active');
-                document.getElementById('linkInput').classList.add('active');
+                document.getElementById('linkInput').style.display = 'block';
+                document.getElementById('fileInput').style.display = 'none';
+                selectedFile = null;
             } else {
-                document.querySelector('[data-type="upload"]').classList.add('active');
-                document.getElementById('fileInputSection').classList.add('active');
+                document.getElementById('linkInput').style.display = 'none';
+                document.getElementById('fileInput').style.display = 'block';
+                document.getElementById('downloadLink').value = '';
             }
         }
 
-        document.querySelectorAll('.upload-type-btn').forEach(btn => {
-            btn.setAttribute('data-type', btn.textContent.includes('Link') ? 'link' : 'upload');
-        });
-
-        const fileInput = document.getElementById('fileUpload');
-        const fileLabel = document.getElementById('fileLabel');
-        const filePreview = document.getElementById('filePreview');
-
-        fileInput.addEventListener('change', handleFileSelect);
-
-        fileLabel.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileLabel.classList.add('dragover');
-        });
-
-        fileLabel.addEventListener('dragleave', () => {
-            fileLabel.classList.remove('dragover');
-        });
-
-        fileLabel.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileLabel.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileSelect();
-            }
-        });
-
-        function handleFileSelect() {
-            const file = fileInput.files[0];
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
             if (!file) return;
 
-            const maxSize = 50 * 1024 * 1024;
+            // Check file size (50MB max)
+            const maxSize = 50 * 1024 * 1024; // 50MB
             if (file.size > maxSize) {
-                showError('File size exceeds 50MB limit!');
-                fileInput.value = '';
+                showError('File size must be less than 50MB');
+                event.target.value = '';
                 return;
             }
 
-            const allowedExtensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip'];
-            const fileExtension = file.name.split('.').pop().toLowerCase();
-            
-            if (!allowedExtensions.includes(fileExtension)) {
+            // Check file type
+            const allowedTypes = [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/zip',
+                'application/x-zip-compressed'
+            ];
+
+            if (!allowedTypes.includes(file.type)) {
                 showError('Invalid file type. Please upload PDF, DOC, DOCX, PPT, PPTX, or ZIP files only.');
-                fileInput.value = '';
+                event.target.value = '';
                 return;
             }
 
             selectedFile = file;
+
+            // Show file preview
+            document.getElementById('fileLabel').style.display = 'none';
+            document.getElementById('filePreview').style.display = 'block';
             document.getElementById('fileName').textContent = file.name;
             document.getElementById('fileSize').textContent = formatFileSize(file.size);
-            filePreview.style.display = 'block';
         }
 
         function removeFile() {
             selectedFile = null;
-            fileInput.value = '';
-            filePreview.style.display = 'none';
+            document.getElementById('fileUpload').value = '';
+            document.getElementById('fileLabel').style.display = 'flex';
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('uploadProgress').style.display = 'none';
         }
 
         function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        async function uploadFile(file, studentName, courseTitle) {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}_${studentName.replace(/\s+/g, '_')}_${courseTitle.replace(/\s+/g, '_')}.${fileExt}`;
+            const filePath = `courses/${fileName}`;
+
+            // Show progress
+            document.getElementById('uploadProgress').style.display = 'block';
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressText').textContent = 'Uploading... 0%';
+
+            try {
+                // Upload file to Supabase Storage
+                const { data, error } = await supabase.storage
+                    .from('course-files')
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false,
+                        onUploadProgress: (progress) => {
+                            const percent = Math.round((progress.loaded / progress.total) * 100);
+                            document.getElementById('progressFill').style.width = percent + '%';
+                            document.getElementById('progressText').textContent = `Uploading... ${percent}%`;
+                        }
+                    });
+
+                if (error) throw error;
+
+                // Get public URL
+                const { data: urlData } = supabase.storage
+                    .from('course-files')
+                    .getPublicUrl(filePath);
+
+                document.getElementById('progressText').textContent = 'Upload complete! ✅';
+                
+                return urlData.publicUrl;
+            } catch (error) {
+                console.error('Upload error:', error);
+                throw new Error('Failed to upload file: ' + error.message);
+            }
         }
 
         async function submitRequest() {
@@ -849,21 +852,18 @@
             const downloadLink = document.getElementById('downloadLink').value.trim();
             const notes = document.getElementById('additionalNotes').value.trim();
 
+            // Hide messages
             document.getElementById('successMessage').classList.remove('show');
             document.getElementById('errorMessage').classList.remove('show');
 
+            // Validation
             if (!studentName || !email || !courseTitle || !description || !category) {
                 showError('Please fill in all required fields!');
                 return;
             }
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError('Please enter a valid email address!');
-                return;
-            }
-
-            if (uploadType === 'link') {
+            // Validate upload type
+            if (currentUploadType === 'link') {
                 if (!downloadLink) {
                     showError('Please provide a download link!');
                     return;
@@ -881,6 +881,13 @@
                 }
             }
 
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address!');
+                return;
+            }
+
+            // Disable button and show loading
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             btn.disabled = true;
@@ -888,84 +895,36 @@
 
             try {
                 let fileUrl = null;
-                let filePath = null;
-                let fileName = null;
+                let finalDownloadLink = downloadLink;
 
-                if (uploadType === 'upload') {
-                    const uploadProgress = document.getElementById('uploadProgress');
-                    const progressFill = document.getElementById('progressFill');
-                    const progressText = document.getElementById('progressText');
-                    
-                    uploadProgress.style.display = 'block';
-                    progressFill.style.width = '10%';
-                    progressText.textContent = 'Uploading... 10%';
-
-                    const fileExt = selectedFile.name.split('.').pop();
-                    const uniqueFileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-                    filePath = `course-files/${uniqueFileName}`;
-
-                    progressFill.style.width = '30%';
-                    progressText.textContent = 'Uploading... 30%';
-
-                    const { data: uploadData, error: uploadError } = await supabase.storage
-                        .from('course-files')
-                        .upload(filePath, selectedFile, {
-                            cacheControl: '3600',
-                            upsert: false
-                        });
-
-                    if (uploadError) {
-                        console.error('Upload error:', uploadError);
-                        throw new Error('Failed to upload file: ' + uploadError.message);
-                    }
-
-                    progressFill.style.width = '70%';
-                    progressText.textContent = 'Uploading... 70%';
-
-                    const { data: urlData } = supabase.storage
-                        .from('courses')
-                        .getPublicUrl(filePath);
-
-                    fileUrl = urlData.publicUrl;
-                    fileName = selectedFile.name;
-
-                    progressFill.style.width = '90%';
-                    progressText.textContent = 'Uploading... 90%';
+                // If file upload, upload to Supabase Storage
+                if (currentUploadType === 'upload' && selectedFile) {
+                    fileUrl = await uploadFile(selectedFile, studentName, courseTitle);
+                    finalDownloadLink = fileUrl;
                 }
 
-                const requestData = {
-                    student_name: studentName,
-                    email: email,
-                    course_title: courseTitle,
-                    description: description,
-                    category: category,
-                    notes: notes || null,
-                    status: 'pending'
-                };
-
-                if (uploadType === 'link') {
-                    requestData.download_link = downloadLink;
-                } else {
-                    requestData.file_path = filePath;
-                    requestData.file_url = fileUrl;
-                    requestData.file_name = fileName;
-                }
-
-                const { data, error } = await supabase
+                // Insert into Supabase
+                const { error } = await supabase
                     .from('course_requests')
-                    .insert([requestData]);
+                    .insert({
+                        student_name: studentName,
+                        email: email,
+                        course_title: courseTitle,
+                        description: description,
+                        category: category,
+                        download_link: finalDownloadLink,
+                        file_url: fileUrl,
+                        upload_type: currentUploadType,
+                        notes: notes || null,
+                        status: 'pending'
+                    });
 
                 if (error) throw error;
 
-                if (uploadType === 'upload') {
-                    const progressFill = document.getElementById('progressFill');
-                    const progressText = document.getElementById('progressText');
-                    progressFill.style.width = '100%';
-                    progressText.textContent = 'Complete!';
-                }
-
+                // Show success message
                 document.getElementById('successMessage').classList.add('show');
                 
+                // Clear form
                 document.getElementById('studentName').value = '';
                 document.getElementById('studentEmail').value = '';
                 document.getElementById('courseTitle').value = '';
@@ -973,29 +932,22 @@
                 document.getElementById('courseCategory').value = '';
                 document.getElementById('downloadLink').value = '';
                 document.getElementById('additionalNotes').value = '';
-                
-                if (selectedFile) {
-                    removeFile();
-                }
+                removeFile();
+                selectUploadType('link');
 
+                // Scroll to success message
                 document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+                // Hide success message after 8 seconds
                 setTimeout(() => {
                     document.getElementById('successMessage').classList.remove('show');
-                    if (uploadType === 'upload') {
-                        document.getElementById('uploadProgress').style.display = 'none';
-                        document.getElementById('progressFill').style.width = '0%';
-                    }
                 }, 8000);
 
             } catch (error) {
                 console.error('Error:', error);
-                showError('Failed to submit request. ' + error.message);
-                if (uploadType === 'upload') {
-                    document.getElementById('uploadProgress').style.display = 'none';
-                    document.getElementById('progressFill').style.width = '0%';
-                }
+                showError('Failed to submit request. Please try again. ' + error.message);
             } finally {
+                // Re-enable button
                 btn.disabled = false;
                 btnText.textContent = 'Submit Request';
             }
@@ -1011,7 +963,7 @@
             }, 6000);
         }
 
-        document.querySelectorAll('input:not([type="file"]), select').forEach(element => {
+        document.querySelectorAll('input, select').forEach(element => {
             element.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -1020,5 +972,17 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+    var sc_project=13174642; 
+    var sc_invisible=1; 
+    var sc_security="fab45bbd"; 
+    </script>
+    <script type="text/javascript"
+    src="https://www.statcounter.com/counter/counter.js" async></script>
+    <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img class="statcounter"
+    src="https://c.statcounter.com/13174642/0/fab45bbd/1/" alt="Web Analytics"
+    referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 </body>
 </html>
