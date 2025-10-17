@@ -961,8 +961,49 @@
             }, 600);
         }
 
-        renderCourses();
-        updateStats();
+        // Load approved courses from Supabase
+        async function loadApprovedCourses() {
+            try {
+                const { data, error } = await supabase
+                    .from('courses')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                // Transform Supabase data to match course format
+                courses = data.map(course => ({
+                    title: course.title,
+                    description: course.description,
+                    category: course.category,
+                    driveLink: course.file_url,
+                    uploadDate: course.created_at
+                }));
+
+                renderCourses();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                courses = [];
+                renderCourses();
+                updateStats();
+            }
+        }
+
+        // Initialize - Load courses from Supabase
+        loadApprovedCourses();
+
+        // Realtime subscription for course updates
+        const coursesSubscription = supabase
+            .channel('course_updates')
+            .on('postgres_changes', 
+                { event: '*', schema: 'public', table: 'courses' }, 
+                (payload) => {
+                    console.log('Course update received!', payload);
+                    loadApprovedCourses();
+                }
+            )
+            .subscribe();
 
         function changeLanguage(lang) {
             currentLanguage = lang;
