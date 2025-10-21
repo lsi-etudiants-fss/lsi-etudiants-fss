@@ -965,6 +965,69 @@
         </div>
     </div>
 
+    <!-- Add/Edit Course Modal -->
+    <div class="modal" id="addEditCourseModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <h2 id="addEditTitle">➕ Add New Course</h2>
+            <p>Fill in the course details:</p>
+            
+            <div style="background: #f8fafc; padding: 24px; border-radius: 12px; margin: 20px 0; border: 2px solid #e2e8f0;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Course Title <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="text" id="newCourseTitle" placeholder="e.g., Introduction to Python Programming" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Description <span style="color: #ef4444;">*</span>
+                    </label>
+                    <textarea id="newCourseDescription" placeholder="Provide a detailed description of the course content..." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; min-height: 100px; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Category <span style="color: #ef4444;">*</span>
+                    </label>
+                    <select id="newCourseCategory" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                        <option value="">-- Select Category --</option>
+                        <option value="programmation">💻 Atelier Programmation</option>
+                        <option value="systeme_logique">🔧 Système Logique et Architecture</option>
+                        <option value="algorithme">📊 Algorithme et Structure de Données</option>
+                        <option value="logique">🧠 Logique Formelle</option>
+                        <option value="multimedia">🎨 Technologies Multimédia</option>
+                        <option value="communication">📡 Technique de Communication</option>
+                        <option value="analyse">📐 Analyse</option>
+                        <option value="algebre">🔢 Algèbre</option>
+                        <option value="systeme_exploitation">⚙️ Système d'Exploitation</option>
+                        <option value="anglais">🌍 Anglais</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Course Link/URL <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="url" id="newCourseLink" placeholder="https://drive.google.com/..." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                    <small style="color: #64748b; display: block; margin-top: 6px;">Enter the full URL to the course material (Google Drive, Dropbox, etc.)</small>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 600; color: #334155; margin-bottom: 8px;">
+                        Uploaded By
+                    </label>
+                    <input type="text" id="newCourseUploadedBy" placeholder="Teacher" value="Teacher" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-approve" id="saveCourseBtn" onclick="saveNewCourse()">💾 Save Course</button>
+                <button class="btn btn-decline" onclick="closeAddEditCourseModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1425,8 +1488,8 @@
 
         function updateStats(requests) {
             document.getElementById('totalRequests').textContent = requests.length;
-            document.getElementById('approvedCount').textContent = 0; // Not tracking anymore
-            document.getElementById('declinedCount').textContent = 0; // Not tracking anymore
+            document.getElementById('approvedCount').textContent = 0;
+            document.getElementById('declinedCount').textContent = 0;
             
             const pending = requests.filter(r => r.status === 'pending').length;
             document.getElementById('pendingCount').textContent = pending;
@@ -1451,7 +1514,6 @@
                 confirmBtn.className = 'btn btn-approve';
                 confirmBtn.textContent = 'Approve & Add to Library';
                 
-                // Load current request data
                 loadRequestForEdit(requestId);
             } else {
                 title.textContent = '❌ Decline Request';
@@ -1475,12 +1537,10 @@
 
                 if (error) throw error;
 
-                // Populate edit fields
                 document.getElementById('editTitle').value = request.course_title;
                 document.getElementById('editDescription').value = request.description;
                 document.getElementById('editCategory').value = request.category;
                 
-                // Show read-only info
                 document.getElementById('previewStudent').textContent = `${request.student_name} (${request.email})`;
                 document.getElementById('previewDate').textContent = new Date(request.created_at).toLocaleString();
                 
@@ -1524,7 +1584,6 @@
             confirmBtn.innerHTML = currentAction === 'approve' ? '✅ Approving<span class="spinner"></span>' : '❌ Declining<span class="spinner"></span>';
             
             try {
-                // Get the request details first
                 const { data: request, error: fetchError } = await supabase
                     .from('course_requests')
                     .select('*')
@@ -1536,13 +1595,11 @@
                 let message = '';
 
                 if (currentAction === 'approve') {
-                    // Get edited values
                     const editedTitle = document.getElementById('editTitle').value.trim();
                     const editedDescription = document.getElementById('editDescription').value.trim();
                     const editedCategory = document.getElementById('editCategory').value;
                     message = document.getElementById('responseMessage').value.trim();
 
-                    // Validation
                     if (!editedTitle || !editedDescription || !editedCategory) {
                         alert('⚠️ Please fill in all required fields!');
                         confirmBtn.disabled = false;
@@ -1550,7 +1607,6 @@
                         return;
                     }
 
-                    // Add to permanent courses table with edited values
                     const { error: insertError } = await supabase
                         .from('courses')
                         .insert([{
@@ -1567,7 +1623,6 @@
                     message = document.getElementById('declineResponseMessage').value.trim();
                 }
 
-                // Delete the request (approved or declined, we don't keep it)
                 const { error: deleteError } = await supabase
                     .from('course_requests')
                     .delete()
@@ -1575,7 +1630,6 @@
 
                 if (deleteError) throw deleteError;
 
-                // Send email notification
                 try {
                     await sendEmailNotification(request, currentAction, message);
                     alert(`✅ Request ${currentAction === 'approve' ? 'approved' : 'declined'} successfully!\n\n${currentAction === 'approve' ? '📚 Course added to library!\n' : ''}📧 Email notification sent to ${request.email}`);
@@ -1584,7 +1638,6 @@
                     alert(`⚠️ Request was ${currentAction === 'approve' ? 'approved' : 'declined'}, but email failed to send.\n\nPlease contact the student manually at: ${request.email}`);
                 }
 
-                // Reload requests
                 await loadRequests();
                 await loadLibraryCourses();
                 closeModal();
@@ -1598,10 +1651,8 @@
             }
         }
 
-        // Auto-refresh every 30 seconds
         setInterval(loadRequests, 30000);
 
-        // Realtime subscription for new requests
         const subscription = supabase
             .channel('course_requests_changes')
             .on('postgres_changes', 
